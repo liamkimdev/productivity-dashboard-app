@@ -13,4 +13,5 @@ Full-Stack Productivity Dashboard Application built from scratch front-end to ba
 - Dockerize Application: Docker Container for the whole application, write DockerFile to create image - setup/post
 - Project Management Tool: GitHub Projects
 
-
+### Step One
+- 
