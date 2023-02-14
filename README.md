@@ -13,7 +13,7 @@ Full-Stack Productivity Dashboard Application built from scratch front-end to ba
 - Dockerize Application: Docker Container for the whole application, write DockerFile to create image - setup/post
 - API: (TBD) - add things to help us that are too difficult to do on our own 
 - Project Management Tool: GitHub Projects
-- Wireframe - Figma
+- Wireframe: Figma
 
 ### Step One
 
