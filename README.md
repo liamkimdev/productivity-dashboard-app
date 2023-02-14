@@ -6,7 +6,6 @@ Full-Stack Productivity Dashboard Application built from scratch front-end to ba
 - Backend: Spring Framework - Spring Boot (Java, Spring Initializer)
 - Database: PostgreSQL w/ PGAdmin4 (GUI)
 - Data Access: Spring JDBC
-- Web Server: Apache HTTP
 - Testing: JUnit (Unit Testing), Mockito, Selenium (Integration Testing)
 - Build Tool: Maven
 - Verison Control: Git/Github
@@ -14,7 +13,6 @@ Full-Stack Productivity Dashboard Application built from scratch front-end to ba
 - Dockerize Application: Docker Container for the whole application, write DockerFile to create image - setup/post
 - API: (TBD) - add things to help us that are too difficult to do on our own 
 - Project Management Tool: GitHub Projects
-- React Dashboard - https://retool.com/integrations/
 
 
 POSSIBLE TECH STACK SIMPLIFICATION SWITCH
@@ -27,13 +25,11 @@ POSSIBLE TECH STACK SIMPLIFICATION SWITCH
 
 - Research:
     openId Connect
-    Retool
     Docker 
     
 
 Mission Statement/ Vision statement
 - One stop shop to track productivity, organize your day, and track personal progress
-
 
 Generalized Challenges
 - OpenId Connect for every feature
