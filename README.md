@@ -15,12 +15,6 @@ Full-Stack Productivity Dashboard Application built from scratch front-end to ba
 - Project Management Tool: GitHub Projects
 
 
-POSSIBLE TECH STACK SIMPLIFICATION SWITCH
-- PETITE + FIRE Stack
-- REACT/FIREBASE
-- MERN
-
-
 ### Step One
 
 - Research:
