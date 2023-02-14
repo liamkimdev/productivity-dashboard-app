@@ -2,7 +2,7 @@
 Full-Stack Productivity Dashboard Application built from scratch front-end to back-end.
 
 ## CRUD Application - MVC Pattern
-- FrontEnd: React w/ Typescript + (Redux (State Management Library), BootStrap/ReactBS, WebPack (JS Bundler))
+- FrontEnd: React w/ Typescript + Redux (State Management Library), BootStrap/ReactBS, WebPack (JS Bundler)
 - Backend: Spring Framework - Spring Boot (Java, Spring Initializer)
 - Database: PostgreSQL w/ PGAdmin4 (GUI)
 - Data Access: Spring JDBC
@@ -14,56 +14,52 @@ Full-Stack Productivity Dashboard Application built from scratch front-end to ba
 - API: (TBD) - add things to help us that are too difficult to do on our own 
 - Project Management Tool: GitHub Projects
 
-
 ### Step One
 
 - Research:
-    openId Connect
-    Docker 
+    - openId Connect
+    - Docker 
+    - Widget Dashboard Set up
     
-
-Mission Statement/ Vision statement
+### Mission Statement/ Vision statement
 - One stop shop to track productivity, organize your day, and track personal progress
 
-Generalized Challenges
+### Generalized Challenges
 - OpenId Connect for every feature
-- 
 
-What is the application?
+### What is the application?
 - A dashboard app that has CRUD widgets - clock, claender, tasks, time per task...
 - user accounts - with unique dashboard
 - teams feature with permissions (roles) granted to users
 - integrates google connet and also our own developed widgets (ex. pomodoro)
 
-What do you want in the dashboard?
+### What do you want in the dashboard?
 - planner aplication that tracks what you do -> simple no openid Connect, but has all the links for the widgets you use
 - A mix of both-> the most used widgets would connect (calender: google calender),  genreal music(no options)
 - Impliment one open id connect to create user profile but also provide linking to calender and other google services.
 
-Why is this application usefull?
+### Why is this application usefull?
 - An everyday application to combine other applications into one
 - it is customizable to users but also provides gnereal team use 
 
-Who would use the application?
+### Who would use the application?
 - incoming dev10 associates -> provide utility use
 - Dev10 asociates -> provides purpose and personal connection -> it is motivating 
 
-What do you have open when you start your day? -> connect all of these into one dashboard
+### What do you have open when you start your day? -> connect all of these into one dashboard
 MH:  Spotify,  google, teams, outlook
 LK:  Google calander, outlook,  big brain keeps it all up top,  Youtube music
 LC:  Chat features (discord), calender, spotify, notes
 AK:  Outlook, gmail, teams, sound cloud, pomodoro, many chrome tabs open, github, notes, reminders, calender - as todo list
 
-How do we make this applicaiton flexible??
+### How do we make this applicaiton flexible??
 - IDConnect - maybe
 
-
-Google Integration
+### Google Integration
 - Gmail
 - Calender
-- 
 
-Our Functionality
+### Our Functionality
 - Note pad
 - Daily Journal 
 
