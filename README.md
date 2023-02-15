@@ -10,7 +10,7 @@ Full-Stack Productivity Dashboard Application built from scratch front-end to ba
 - Build Tool: Maven
 - Verison Control: Git/Github
   - Workflow: Feature Branch Workflow (continous delivery & integration) 
-- Dockerize Application: Docker Container for the Backend, Frontend & Database Server, write DockerFile to create image - after intial setup
+- Dockerize Application: Docker Container (2 total) for the Backend + Frontend & Database Server, write DockerFile to create image - after intial setup
 - API: REST
 - Project Management Tool: GitHub Projects
 - Wireframe: Figma
