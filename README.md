@@ -65,7 +65,3 @@ AK:  Outlook, gmail, teams, sound cloud, pomodoro, many chrome tabs open, github
 - Daily Journal 
 
 
-dsfsdfsdf
-
-
-
