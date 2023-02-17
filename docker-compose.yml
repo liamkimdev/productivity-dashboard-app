@@ -1,0 +1,43 @@
+version: '3'
+services:
+  postgres:
+    container_name: container-postgresdb
+    image: postgres
+    hostname: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: productivity_dashboard_prod
+    volumes:
+      - ./database/postgres-data:/var/lib/postgresql/data
+      - ./database/production.sql:/docker-entrypoint-initdb.d/production.sql
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4
+    depends_on:
+      - postgres
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_LISTEN_ADDRESS: 0.0.0.0
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_DEFAULT_SERVER: postgres
+      PGADMIN_DEFAULT_SERVER_GROUP: Servers
+      PGADMIN_DEFAULT_SERVER_PORT: 5432
+      PGADMIN_DEFAULT_SERVER_DATABASE: productivity_dashboard_prod
+      PGADMIN_DEFAULT_SERVER_USERNAME: postgres
+      PGADMIN_DEFAULT_SERVER_PASSWORD: admin
+    restart: unless-stopped
+
+  frontend:
+    build: ./client
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres-data:
+

@@ -15,13 +15,6 @@ Full-Stack Productivity Dashboard Application built from scratch front-end to ba
 - Project Management Tool: GitHub Projects
 - Wireframe: Figma
 
-### Step One
-
-- Research:
-    - openId Connect
-    - Docker 
-    - Widget Dashboard Set up
-    
 ### Mission Statement/ Vision statement
 - One stop shop to track productivity, organize your day, and track personal progress
 
@@ -65,3 +58,50 @@ AK:  Outlook, gmail, teams, sound cloud, pomodoro, many chrome tabs open, github
 - Daily Journal 
 
 
+# Start Up
+
+This is a Dockerized version of the Productivity Dashboard application.
+
+## Prerequisites
+
+Before running the application, you must have the following installed on your system:
+
+- Docker
+
+## Getting Started
+
+1. Clone the repository to your local machine (HTTPS):
+
+`git clone https://github.com/devaustin10/productivity-dashboard-app.git`
+
+2. Change to the project directory:
+
+`cd productivity-dashboard`
+
+3. Start the application:
+
+`docker-compose up`
+
+This will start the PostgreSQL database, pgAdmin, and the frontend application in separate containers.
+
+4. Access the application:
+
+- To access the frontend application, open a web browser and go to http://localhost:3000.
+- To access pgAdmin, open a web browser and go to http://localhost:5050. Log in with the username and password specified in the `docker-compose.yml` file.
+
+## Customization
+
+You can customize the application by modifying the `docker-compose.yml` file. The following environment variables can be changed:
+
+- `POSTGRES_USER`: The username for the PostgreSQL database.
+- `POSTGRES_PASSWORD`: The password for the PostgreSQL database.
+- `POSTGRES_DB`: The name of the database to be created in PostgreSQL.
+- `PGADMIN_DEFAULT_EMAIL`: The email address to use for the pgAdmin user.
+- `PGADMIN_DEFAULT_PASSWORD`: The password to use for the pgAdmin user.
+
+You can also customize the frontend application by modifying the files in the `client` directory.
+
+## Troubleshooting
+
+- If you encounter any issues with the application, please refer to the logs for the individual containers by running the following command: `docker-compose logs <container-name>`
+- Replace <container-name> with the name of the container that you want to view the logs for (e.g. postgres, pgadmin, or frontend).
