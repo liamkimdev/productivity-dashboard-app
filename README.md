@@ -11,7 +11,7 @@ Full-Stack Productivity Dashboard Application built from scratch front-end to ba
 - Verison Control: Git/Github
   - Workflow: Feature Branch Workflow (continous delivery & integration) 
 - Dockerize Application: Docker Container (2 total) for the Backend + Frontend & Database Server, write DockerFile to create image - after intial setup
-- API: REST
+- API: REST & Fetch
 - Project Management Tool: GitHub Projects
 - Wireframe: Figma
 
