@@ -26,5 +26,10 @@ services:
       PGADMIN_DEFAULT_PASSWORD: admin
     restart: unless-stopped
 
+  frontend:
+      build: ../../../client
+      ports:
+        - "3000:3000"
+
 volumes:
   postgres-data:
