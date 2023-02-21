@@ -38,6 +38,18 @@ services:
     ports:
       - "3000:3000"
 
+  backend:
+    image: springboot-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/productivity_dashboard_prod
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin
+    volumes:
+      - ./server/target:/app
+    restart: unless-stopped
+
 volumes:
   postgres-data:
 
