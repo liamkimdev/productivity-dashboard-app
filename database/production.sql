@@ -31,16 +31,18 @@ insert into app_role ("name") values
 	
 CREATE TABLE dashboard (
 	dashboard_id serial primary key,
+	dashboard_name varchar(255) not null,
 	user_id int not null,
 	constraint fk_dashboard_user
 		foreign key (user_id)
 	references "user" (user_id)
 );
-	
+
+--need to update the database!
 CREATE TABLE note (
 	note_id serial primary key, 
 	title VARCHAR(255) default null,
-	description VARCHAR(10000) not null,
+	description VARCHAR(10000) default null,
 	"timestamp" timestamptz not null
 );
 

@@ -23,7 +23,7 @@
      - `clean`: Removes any files generated from a previous build.
      - `package`: Complies the source code and packages it into an executable JAR file.
      - TIP: If you get an error saying `./mvnw clean package permission denied` then run the following command to grant executable permissions to the `mvnw` script: 
-       - `chmod +x mvnw
+       - `chmod +x mvnw`
 
 4. Go to the root level of the project where the `docker-compose.yml` file is located.
 
@@ -63,3 +63,10 @@ CMD ["java", "-jar", "productivity-0.0.1-SNAPSHOT.jar"]
 ```
 
 3. Follow the steps above in `Getting Started: Setting Up the BackEnd Container`.
+
+### Other Tips
+- If you run into an issue where port 5434 is being used even though everything is turned off:
+  - See what is running on that port.
+    - `sudo lsof -i :5432`
+  - Kill what is on that port using the PID.
+    - `sudo kill 331`
