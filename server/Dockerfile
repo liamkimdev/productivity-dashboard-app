@@ -1,5 +1,5 @@
 # Uses this image as a base image
-FROM openjdk:17-jdk-alpine
+FROM bellsoft/liberica-openjdk-alpine:17
 # Sets the working directory of the container to '/app'
 WORKDIR /app
 # Copies the file from the target directory on the host machine to the '/app' directory in the container
