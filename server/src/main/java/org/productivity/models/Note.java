@@ -7,15 +7,17 @@ public class Note {
     private String title;
     private String description;
     private LocalDate date;
+    private int noteWidgetId;
 
     public Note() {
     }
 
-    public Note(int noteId, String title, String description, LocalDate date) {
+    public Note(int noteId, String title, String description, LocalDate date, int noteWidgetId) {
         this.noteId = noteId;
         this.title = title;
         this.description = description;
         this.date = date;
+        this.noteWidgetId = noteWidgetId;
     }
 
     public int getNoteId() {
@@ -40,6 +42,14 @@ public class Note {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getNoteWidget() {
+        return noteWidgetId;
+    }
+
+    public void setNoteWidget(int noteWidgetId) {
+        this.noteWidgetId = noteWidgetId;
     }
 
     public LocalDate getDate() {

@@ -43,17 +43,18 @@ CREATE TABLE note (
 	note_id serial primary key, 
 	title VARCHAR(255) default null,
 	description VARCHAR(10000) default null,
-	"timestamp" timestamptz not null
+	"timestamp" timestamptz not null,
+    constraint fk_note_note_widget
+		foreign key (note_widget_id)
+        references note_widget (note_widget_id)
+    
 );
 
 CREATE TABLE note_widget (
 	note_widget_id serial primary key, 
-	note_id int not null,
+    title varchar(255) default null,
 	dashboard_id int not null,
 	constraint fk_note_widget_dashboard
 		foreign key (dashboard_id)
-	references dashboard (dashboard_id),
-	constraint fk_note_widget_note
-		foreign key (note_id)
-	references note (note_id)
+		references dashboard (dashboard_id)
 );
