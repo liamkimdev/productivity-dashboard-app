@@ -12,18 +12,18 @@
 1. Make sure you are in the root level of the `server` directory.
    - `cd productivity-dashboard`
    - `cd server`
-
-2. Create the image for the backend.
-   - `docker build -t springboot-backend .`
-   - Make sure that you see a `productivity-0.0.1-SNAPSHOT.jar` file in the `target` folder inside the `server` directory.
-
-3. Build a Java application using the Maven build tool. This is to create a deployable package (JAR file) of the application.
+ 
+2. Build a Java application using the Maven build tool. This is to create a deployable package (JAR file) of the application.
    - `./mvnw clean package`
+   - Make sure that you see a `productivity-0.0.1-SNAPSHOT.jar` file in the `target` folder inside the `server` directory.
      - `./mvnw`: Runs the Maven wrapper, which is a script that allows you to run Maven without having to install it on your machine.
      - `clean`: Removes any files generated from a previous build.
      - `package`: Complies the source code and packages it into an executable JAR file.
-     - TIP: If you get an error saying `./mvnw clean package permission denied` then run the following command to grant executable permissions to the `mvnw` script: 
-       - `chmod +x mvnw`
+       - TIP: If you get an error saying `./mvnw clean package permission denied` then run the following command to grant executable permissions to the `mvnw` script: 
+         - `chmod +x mvnw`
+
+3. Create the image for the backend.
+    - `docker build -t springboot-backend .`
 
 4. Go to the root level of the project where the `docker-compose.yml` file is located.
 
@@ -64,9 +64,9 @@ CMD ["java", "-jar", "productivity-0.0.1-SNAPSHOT.jar"]
 
 3. Follow the steps above in `Getting Started: Setting Up the BackEnd Container`.
 
-### Other Tips
-- If you run into an issue where port 5434 is being used even though everything is turned off:
-  - See what is running on that port.
-    - `sudo lsof -i :5432`
-  - Kill what is on that port using the PID.
-    - `sudo kill 331`
+
+### Issues
+## When running localhost:8080, Not Showing Our 0Auth Login Html
+- SOLUTION: Need to recreate the `productivity-0.0.1-SNAPSHOT.jar` file in the `target` folder inside the `server` directory. We implemented 0Auth after packing up our application. Any major changes, we need to recreate the jar file.
+  - `./mvnw clean package`
+
