@@ -13,7 +13,6 @@ public class DashboardMapper implements RowMapper<Dashboard> {
         Dashboard dashboard = new Dashboard();
         dashboard.setDashboardId(rs.getInt("dashboard_id"));
         dashboard.setDashboardName(rs.getString("dashboard_name"));
-        dashboard.setPermission(rs.getBoolean("user_id"));
         dashboard.setUserId(rs.getInt("user_id"));
 
         return dashboard;

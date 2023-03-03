@@ -10,7 +10,7 @@ public interface NoteRepository {
 
     List<Note> findByNoteDate(LocalDate date);
 
-    Note findByNote(int noteId);
+    Note findByNoteId(int noteId);
 
     List<Note> findByNoteDescription(String description);
 

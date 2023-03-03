@@ -3,16 +3,14 @@ package org.productivity.models;
 public class Dashboard {
     private int dashboardId;
     private String dashboardName;
-    private boolean permission;
     private int userId;
 
     public Dashboard() {
     }
 
-    public Dashboard(int dashboardId, String dashboardName, boolean permission, int userId) {
+    public Dashboard(int dashboardId, String dashboardName, int userId) {
         this.dashboardId = dashboardId;
         this.dashboardName = dashboardName;
-        this.permission = permission;
         this.userId = userId;
     }
 
@@ -22,12 +20,6 @@ public class Dashboard {
 
     public void setDashboardId(int dashboardId) {
         this.dashboardId = dashboardId;
-    }
-
-
-
-    public boolean isPermission() {
-        return permission;
     }
 
     public String getDashboardName() {
@@ -44,9 +36,5 @@ public class Dashboard {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public void setPermission(boolean permission) {
-        this.permission = permission;
     }
 }

@@ -6,9 +6,9 @@ public interface DashboardRepository {
 
     Dashboard findByDashboardName(String dashboardName);
 
-    Dashboard addDashboard(Dashboard dashboard);
+    Dashboard createDashboard(Dashboard dashboard);
 
-    boolean updateDashboardById(String name, int dashboardId);
+    boolean updateDashboard(Dashboard dashboard);
 
     boolean deleteDashboardById (int dashboardId);
 }

@@ -38,7 +38,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
     }
 
     @Override
-    public Note findByNote(int noteId) {
+    public Note findByNoteId(int noteId) {
         final String sql = "SELECT * from note WHERE date_id = ?;";
 
         Note note = jdbcTemplate.query(sql, new NoteMapper(), noteId).stream()
@@ -49,10 +49,11 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public List<Note> findByNoteDescription(String description) {
-//        final String sql = "select description from note where description = %?%;";
-//
-//        List<Note> notesList = jdbcTemplate.query(sql, new NoteMapper());
-        return null;
+        final String sql = "SELECT * from note WHERE description = %?%;";
+
+        List<Note> notesList = jdbcTemplate.query(sql, new NoteMapper(), description);
+
+        return notesList;
     }
 
     @Override
