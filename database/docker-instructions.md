@@ -66,7 +66,12 @@ CMD ["java", "-jar", "productivity-0.0.1-SNAPSHOT.jar"]
 
 
 ### Issues
-## When running localhost:8080, Not Showing Our 0Auth Login Html
+#### When Running `localhost:8080`, Not Showing Our 0Auth Login Html
 - SOLUTION: Need to recreate the `productivity-0.0.1-SNAPSHOT.jar` file in the `target` folder inside the `server` directory. We implemented 0Auth after packing up our application. Any major changes, we need to recreate the jar file.
   - `./mvnw clean package`
+
+#### When Running `docker compose up`, Getting Error Saying That Port 5434 Is Already In Use
+- SOLUTION: Need to see what is currently running on that port first and then kill it.
+  - `lsof -i :5434`
+  - `kill -9 PID`
 

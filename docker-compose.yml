@@ -13,6 +13,8 @@ services:
     volumes:
       - ./database/postgres-data:/var/lib/postgresql/data
       - ./database/production.sql:/docker-entrypoint-initdb.d/production.sql
+      - ./database/test.sql:/docker-entrypoint-initdb.d/test.sql
+
     restart: unless-stopped
 
   pgadmin:

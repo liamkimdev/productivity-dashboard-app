@@ -23,7 +23,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public List<Note> findAll() {
-        final String sql = "SELECT * from note;";
+        final String sql = "SELECT * from production.note;";
 
         List<Note> notes = jdbcTemplate.query(sql, new NoteMapper());
         return notes;
@@ -31,7 +31,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public List<Note> findByNoteDate(LocalDate date) {
-        final String sql = "SELECT * from note WHERE date = ?;";
+        final String sql = "SELECT * from production.note WHERE date = ?;";
 
         List<Note> note = jdbcTemplate.query(sql, new NoteMapper(), date);
         return note;
@@ -39,7 +39,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public Note findByNoteId(int noteId) {
-        final String sql = "SELECT * from note WHERE date_id = ?;";
+        final String sql = "SELECT * from production.note WHERE date_id = ?;";
 
         Note note = jdbcTemplate.query(sql, new NoteMapper(), noteId).stream()
                 .findAny().orElse(null);
@@ -49,7 +49,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public List<Note> findByNoteDescription(String description) {
-        final String sql = "SELECT * from note WHERE description = %?%;";
+        final String sql = "SELECT * from production.note WHERE description = %?%;";
 
         List<Note> notesList = jdbcTemplate.query(sql, new NoteMapper(), description);
 
@@ -58,7 +58,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public Note createNote(Note note) {
-        final String sql = "INSERT into note (title, description, `timestamp`) "
+        final String sql = "INSERT into production.note (title, description, `timestamp`) "
                     + "values (?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -81,7 +81,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
     @Override
     public boolean updateNote(Note note) {
 
-        final String sql = "UPDATE note SET "
+        final String sql = "UPDATE production.note SET "
                 + "title = ?, "
                 + "description = ?, "
                 + "`timestamp` = ? "
@@ -99,7 +99,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
     @Override
     public boolean deleteNoteById(int noteId) {
 
-        final String sql = "DELETE from note WHERE note_id = ?;";
+        final String sql = "DELETE from production.note WHERE note_id = ?;";
 
         boolean deleteConfirmation = jdbcTemplate.update(sql,
                 noteId) > 0;
