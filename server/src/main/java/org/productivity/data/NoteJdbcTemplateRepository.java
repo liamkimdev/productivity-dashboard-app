@@ -31,7 +31,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public List<Note> findByNoteDate(LocalDate date) {
-        final String sql = "SELECT * from production.note WHERE date = ?;";
+        final String sql = "SELECT * from production.note WHERE `date` = ?;";
 
         List<Note> note = jdbcTemplate.query(sql, new NoteMapper(), date);
         return note;
@@ -39,7 +39,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public Note findByNoteId(int noteId) {
-        final String sql = "SELECT * from production.note WHERE date_id = ?;";
+        final String sql = "SELECT * from note WHERE note_id = ?;";
 
         Note note = jdbcTemplate.query(sql, new NoteMapper(), noteId).stream()
                 .findAny().orElse(null);
@@ -58,7 +58,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public Note createNote(Note note) {
-        final String sql = "INSERT into production.note (title, description, `timestamp`) "
+        final String sql = "INSERT into production.note (title, description, `date`) "
                     + "values (?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -84,7 +84,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
         final String sql = "UPDATE production.note SET "
                 + "title = ?, "
                 + "description = ?, "
-                + "`timestamp` = ? "
+                + "`date` = ? "
                 + "WHERE note_id = ?;";
 
         boolean updateConfirmation = jdbcTemplate.update(sql,
