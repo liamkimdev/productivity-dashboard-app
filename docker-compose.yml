@@ -77,6 +77,3 @@
       volumes:
         - ./server/target:/app
       restart: unless-stopped
-
-#  volumes:
-#    postgres-data:
