@@ -10,7 +10,10 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.ZoneOffset;
 import java.util.List;
+import java.sql.Timestamp;
+import java.util.Map;
 
 @Repository
 public class NoteJdbcTemplateRepository implements NoteRepository{
@@ -23,7 +26,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public List<Note> findAll() {
-        final String sql = "SELECT * from production.note;";
+        final String sql = "SELECT * from note;";
 
         List<Note> notes = jdbcTemplate.query(sql, new NoteMapper());
         return notes;
@@ -31,7 +34,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public List<Note> findByNoteDate(LocalDate date) {
-        final String sql = "SELECT * from production.note WHERE `date` = ?;";
+        final String sql = "SELECT * from note WHERE \"date\" = ?;";
 
         List<Note> note = jdbcTemplate.query(sql, new NoteMapper(), date);
         return note;
@@ -49,7 +52,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public List<Note> findByNoteDescription(String description) {
-        final String sql = "SELECT * from production.note WHERE description = %?%;";
+        final String sql = "SELECT * from note WHERE description ILIKE '%' || ? || '%';";
 
         List<Note> notesList = jdbcTemplate.query(sql, new NoteMapper(), description);
 
@@ -58,15 +61,17 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public Note createNote(Note note) {
-        final String sql = "INSERT into production.note (title, description, `date`) "
-                    + "values (?, ?, ?);";
+        final String sql = "INSERT into note (title, description, \"date\", note_widget_id) "
+                    + "values (?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, note.getTitle());
             ps.setString(2, note.getDescription());
-            ps.setString(3, String.valueOf(note.getDate()));
+            ps.setTimestamp(3, new Timestamp(note.getDate().toEpochSecond(ZoneOffset.UTC)));
+            ps.setInt(4, note.getNoteWidget());
+
             return ps;
             }, keyHolder);
 
@@ -74,17 +79,22 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
             return null;
         }
 
-        note.setNoteId(keyHolder.getKey().intValue());
+       // note.setNoteId(keyHolder.getKey().intValue());
+
+        Map<String, Object> keys = keyHolder.getKeys();
+        int noteId = (int) keys.get("note_id");
+        note.setNoteId(noteId);
+
         return note;
     }
 
     @Override
     public boolean updateNote(Note note) {
 
-        final String sql = "UPDATE production.note SET "
+        final String sql = "UPDATE note SET "
                 + "title = ?, "
                 + "description = ?, "
-                + "`date` = ? "
+                + "\"date\" = ? "
                 + "WHERE note_id = ?;";
 
         boolean updateConfirmation = jdbcTemplate.update(sql,
@@ -99,7 +109,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
     @Override
     public boolean deleteNoteById(int noteId) {
 
-        final String sql = "DELETE from production.note WHERE note_id = ?;";
+        final String sql = "DELETE from note WHERE note_id = ?;";
 
         boolean deleteConfirmation = jdbcTemplate.update(sql,
                 noteId) > 0;

@@ -1,18 +1,19 @@
 package org.productivity.models;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
 
 public class Note {
     private int noteId;
     private String title;
     private String description;
-    private LocalDate date;
+    private LocalDateTime date;
     private int noteWidgetId;
 
     public Note() {
     }
 
-    public Note(int noteId, String title, String description, LocalDate date, int noteWidgetId) {
+    public Note(int noteId, String title, String description, LocalDateTime date, int noteWidgetId) {
         this.noteId = noteId;
         this.title = title;
         this.description = description;
@@ -52,11 +53,11 @@ public class Note {
         this.noteWidgetId = noteWidgetId;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 }
