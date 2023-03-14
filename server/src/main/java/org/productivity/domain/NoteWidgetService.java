@@ -28,7 +28,7 @@ public class NoteWidgetService {
     }
 
     public boolean deleteByNoteWidgetId(int noteWidgetId) {
-        return noteWidgetRepository.deleteByNoteWidgetId(noteWidgetId);
+        return noteWidgetRepository.deleteNoteWidgetById(noteWidgetId);
     }
 
     private Result<NoteWidget> validate(NoteWidget noteWidget) {
@@ -39,7 +39,7 @@ public class NoteWidgetService {
             return result;
         }
 
-        if (Validations.isNullOrBlank(String.valueOf(noteWidget.getDashboardId()))) {
+        if (noteWidget.getDashboardId() <= 0) {
             result.addMessage(ResultType.INVALID, "Dashboard Id is required.");
         }
 

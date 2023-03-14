@@ -10,5 +10,5 @@ public interface NoteWidgetRepository {
 
     NoteWidget createNoteWidget(NoteWidget noteWidget);
 
-    boolean deleteByNoteWidgetId(int noteWidgetId);
+    boolean deleteNoteWidgetById(int noteWidgetId);
 }

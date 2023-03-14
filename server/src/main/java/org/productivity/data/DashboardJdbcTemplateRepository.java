@@ -6,9 +6,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.Map;
 
 @Repository
 public class DashboardJdbcTemplateRepository implements DashboardRepository {
@@ -20,10 +22,10 @@ public class DashboardJdbcTemplateRepository implements DashboardRepository {
     }
 
     @Override
-    public Dashboard findByDashboardName(String dashboardName) {
-        final String sql = "SELECT * from note WHERE dashboard_name = ?;";
+    public Dashboard findByDashboardId(int dashboardId) {
+        final String sql = "SELECT * from dashboard WHERE dashboard_id = ?;";
 
-        Dashboard dashboard = jdbcTemplate.query(sql, new DashboardMapper(), dashboardName).stream()
+        Dashboard dashboard = jdbcTemplate.query(sql, new DashboardMapper(), dashboardId).stream()
                 .findAny().orElse(null);
 
         return dashboard;
@@ -32,7 +34,7 @@ public class DashboardJdbcTemplateRepository implements DashboardRepository {
     @Override
     public Dashboard createDashboard(Dashboard dashboard) {
         final String sql = "INSERT into dashboard (dashboard_name, user_id)"
-                + " values (?, ?, ?);";
+                + " values (?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
@@ -46,7 +48,10 @@ public class DashboardJdbcTemplateRepository implements DashboardRepository {
             return null;
         }
 
-        dashboard.setDashboardId(keyHolder.getKey().intValue());
+        Map<String, Object> keys = keyHolder.getKeys();
+        int dashboardId = (int) keys.get("dashboard_id");
+        dashboard.setDashboardId(dashboardId);
+
         return dashboard;
     }
 
@@ -55,23 +60,12 @@ public class DashboardJdbcTemplateRepository implements DashboardRepository {
 
         final String sql = "UPDATE dashboard SET "
                 + "dashboard_name = ? "
-                + "WHERE dashboard_id =?;";
+                + "WHERE dashboard_id = ?;";
 
         boolean updateConfirmation =  jdbcTemplate.update(sql,
                 dashboard.getDashboardName(),
                 dashboard.getDashboardId()) > 0;
 
         return updateConfirmation;
-    }
-
-    @Override
-    public boolean deleteDashboardById(int dashboardId) {
-
-        final String sql = "DELETE from dashboard WHERE dashboard_id  = ?;";
-
-        boolean deleteConfirmation = jdbcTemplate.update(sql,
-                dashboardId) > 0;
-
-        return deleteConfirmation;
     }
 }

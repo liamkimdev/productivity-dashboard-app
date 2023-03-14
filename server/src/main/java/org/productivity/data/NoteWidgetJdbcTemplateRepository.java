@@ -5,10 +5,11 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.Map;
 
 @Repository
 public class NoteWidgetJdbcTemplateRepository implements NoteWidgetRepository{
@@ -21,13 +22,14 @@ public class NoteWidgetJdbcTemplateRepository implements NoteWidgetRepository{
 
     @Override
     public NoteWidget createNoteWidget(NoteWidget noteWidget) {
-        final String sql = "INSERT into note_widget (title) "
-                + "values (?);";
+        final String sql = "INSERT into note_widget (title, dashboard_id) "
+                + "values (?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         int rowsAffected = jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, noteWidget.getTitle());
+            ps.setInt(2, noteWidget.getDashboardId());
             return ps;
         }, keyHolder);
 
@@ -35,16 +37,19 @@ public class NoteWidgetJdbcTemplateRepository implements NoteWidgetRepository{
             return null;
         }
 
-        noteWidget.setNoteWidgetId(keyHolder.getKey().intValue());
+        Map<String, Object> keys = keyHolder.getKeys();
+        int noteWidgetId = (int) keys.get("note_widget_id");
+        noteWidget.setNoteWidgetId(noteWidgetId);
+
         return noteWidget;
     }
 
     @Override
-    public boolean deleteByNoteWidgetId(int noteWidgetId) {
-        final String sql = "DELETE from note_widget WHERE note_widget_id = ?;";
+    @Transactional
+    public boolean deleteNoteWidgetById(int noteWidgetId) {
 
-        boolean deleteConfirmation = jdbcTemplate.update(sql, noteWidgetId) > 0;
+        jdbcTemplate.update("DELETE from note WHERE note_widget_id = ?;", noteWidgetId);
 
-        return deleteConfirmation;
+        return jdbcTemplate.update("DELETE from note_widget WHERE note_widget_id = ?;", noteWidgetId) > 0;
     }
 }

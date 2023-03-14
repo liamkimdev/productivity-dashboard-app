@@ -1,8 +1,11 @@
 package org.productivity.models;
 
 public class Dashboard {
+
     private int dashboardId;
+
     private String dashboardName;
+
     private int userId;
 
     public Dashboard() {

@@ -14,8 +14,8 @@ public class DashboardService {
         this.dashboardRepository = dashboardRepository;
     }
 
-    public Dashboard findByDashboardName(String dashboardName) {
-        return dashboardRepository.findByDashboardName(dashboardName);
+    public Dashboard findByDashboardId(int dashboardId) {
+        return dashboardRepository.findByDashboardId(dashboardId);
     }
 
     public Result<Dashboard> createDashboard(Dashboard dashboard) {
@@ -48,10 +48,6 @@ public class DashboardService {
         return result;
     }
 
-    public boolean deleteDashboardById (int dashboardId) {
-        return dashboardRepository.deleteDashboardById(dashboardId);
-    }
-
     private Result<Dashboard> validate(Dashboard dashboard) {
         Result<Dashboard> result = new Result<>();
 
@@ -64,7 +60,7 @@ public class DashboardService {
             result.addMessage(ResultType.INVALID, "Dashboard name is required.");
         }
 
-        if (dashboard.getUserId() == 0) {
+        if (dashboard.getUserId() <= 0) {
             result.addMessage(ResultType.INVALID, "User Id is required.");
         }
 

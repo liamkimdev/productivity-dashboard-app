@@ -79,11 +79,11 @@ public class NoteService {
             return result;
         }
 
-        if (Validations.isNullOrBlank(String.valueOf(note.getDate()))) {
+        if (note.getDate() == null) {
             result.addMessage(ResultType.INVALID, "Timestamp is required.");
         }
 
-        if (Validations.isNullOrBlank(String.valueOf(note.getNoteWidget()))) {
+        if (note.getNoteWidget() <= 0) {
             result.addMessage(ResultType.INVALID, "Note Widget Id is required.");
         }
 
