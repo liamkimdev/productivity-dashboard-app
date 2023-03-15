@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
 import java.sql.Timestamp;
@@ -33,7 +34,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
     }
 
     @Override
-    public List<Note> findByNoteDate(LocalDate date) {
+    public List<Note> findByNoteDate(LocalDateTime date) {
         final String sql = "SELECT * from note WHERE \"date\" = ?;";
 
         List<Note> note = jdbcTemplate.query(sql, new NoteMapper(), date);

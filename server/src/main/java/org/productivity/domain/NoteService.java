@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -24,7 +25,7 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
-    public List<Note> findByNoteDate(LocalDate date) {
+    public List<Note> findByNoteDate(LocalDateTime date) {
         return noteRepository.findByNoteDate(date);
     }
 

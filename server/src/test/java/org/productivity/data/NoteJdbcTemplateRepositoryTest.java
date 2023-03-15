@@ -42,7 +42,7 @@ class NoteJdbcTemplateRepositoryTest {
     @Test
     void shouldFindByNoteDate() {
         // Arrange
-        List<Note> notes = noteJdbcTemplateRepository.findByNoteDate(LocalDate.of(2023,3,4));
+        List<Note> notes = noteJdbcTemplateRepository.findByNoteDate(LocalDateTime.of(2023,3,4,0,0));
 
         // Assert
         assertNotNull(notes);
