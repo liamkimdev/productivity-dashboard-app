@@ -1,10 +1,8 @@
-CREATE TABLE "user" (
+CREATE TABLE app_user (
 	user_id serial primary key,
 	username varchar(50) not null unique,
     password_hash varchar(2048) not null,
     enabled boolean default(false),
-	first_name varchar(255) not null,
-    last_name varchar(255) not null
 );
 
 CREATE TABLE app_role (
@@ -12,14 +10,14 @@ CREATE TABLE app_role (
     "name" varchar(50) not null unique
 );
 
-CREATE TABLE user_role (
+CREATE TABLE app_user_role (
     user_id int not null,
     app_role_id int not null,
     constraint pk_user_role
         primary key (user_id, app_role_id),
     constraint fk_user_role_user_id
         foreign key (user_id)
-        references "user" (user_id),
+        references app_user (user_id),
 	constraint fk_user_role_role_id
         foreign key (app_role_id)
         references app_role(app_role_id)
@@ -35,7 +33,7 @@ CREATE TABLE dashboard (
 	user_id int not null,
 	constraint fk_dashboard_user
 		foreign key (user_id)
-	    references "user" (user_id)
+	    references app_user (user_id)
 );
 
 CREATE TABLE note_widget (
@@ -71,14 +69,31 @@ BEGIN
     DELETE FROM dashboard;
     ALTER SEQUENCE dashboard_dashboard_id_seq RESTART WITH 1;
 
-    DELETE FROM "user";
-    ALTER SEQUENCE user_user_id_seq RESTART WITH 1;
+    DELETE FROM app_user;
+    ALTER SEQUENCE app_user_user_id_seq RESTART WITH 1;
 
 
-    INSERT INTO "user"
-        (username, password_hash, enabled, first_name, last_name)
+    INSERT INTO app_user
+        (username, password_hash, enabled)
     VALUES
-        ('janeDoe', 'password', true, 'Jane', 'Doe');
+        ('therealjohnsmith', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1),
+        ('wonderlander1865','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1),
+        ('neverinfilm','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1),
+        ('veryunf0rtunatevi','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1),
+        ('atticusfinchlaw','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1),
+        ('bigsleeper893','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1),
+        ('keeponrunning','$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 1);
+
+    INSERT INTO app_user_role
+        (user_id, app_role_id)
+    VALUES
+        (1, 2),
+        (2, 1),
+        (3, 1),
+        (4, 1),
+        (5, 1),
+        (6, 1),
+        (7, 2);
 
     INSERT INTO dashboard
         (dashboard_name, user_id)

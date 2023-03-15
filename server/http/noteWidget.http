@@ -1,0 +1,19 @@
+### Note Widget
+
+@url = http://localhost:8080/dashboard/noteWidget
+
+### Create Note Widget
+
+POST{{url}} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer [token]
+
+{
+    "title": P1NK3Y3
+    "dashboardId": 1
+}
+
+###  Delete Note Widget
+
+DELETE {{url}}/1 HTTP/1.1
+Authorization: Bearer [token]

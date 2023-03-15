@@ -80,8 +80,6 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
             return null;
         }
 
-       // note.setNoteId(keyHolder.getKey().intValue());
-
         Map<String, Object> keys = keyHolder.getKeys();
         int noteId = (int) keys.get("note_id");
         note.setNoteId(noteId);

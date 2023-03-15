@@ -39,15 +39,21 @@ public class SecurityConfig {
         http.cors();
 
         http.authorizeRequests()
-                .antMatchers("/authenticate").permitAll()
-                // new...
+                .antMatchers( "/authenticate").permitAll()
                 .antMatchers("/create_account").permitAll()
                 .antMatchers("/refresh_token").authenticated()
+
+                // user
+                .antMatchers(HttpMethod.POST,
+                        "/api/user").permitAll()
+                .antMatchers(HttpMethod.GET,
+                        "/api/ride_on/user/*").hasAnyAuthority("USER", "ADMIN")
+
+                // dashboard
                 .antMatchers(HttpMethod.GET,
                         "/dashboard", "/dashboard/*").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
                         "/dashboard").hasAnyAuthority("USER", "ADMIN")
-//                        "/hike").permitAll()
                 .antMatchers(HttpMethod.PUT,
                         "/dashboard/*").hasAnyAuthority("USER", "ADMIN")
 

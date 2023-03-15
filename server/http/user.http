@@ -1,0 +1,102 @@
+### User
+
+@url = http://localhost:8080
+
+### Bad credentials... returns 403
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bad-username",
+    "password": "bad-password"
+}
+
+### Good credentials... returns 200 with a JWT in the response body
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "therealjohnsmith",
+    "password": "P@ssw0rd!"
+}
+
+### Good credentials... returns 200 with a JWT in the response body
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "wonderlander1865",
+    "password": "P@ssw0rd!"
+}
+
+### Refresh token... be sure to replace the token in the Authorization header with a valid token
+POST {{url}}/refresh_token HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoidGhlcmVhbGpvaG5zbWl0aCIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjc0NjE2MDc2fQ.HDoJKNBsP1MrYwuDVuvm29D-23ueR3-LWsgXLneaSqo
+
+### Create an account... returns 201
+
+POST {{url}}/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "schimidtywarbermanjensen",
+  "password": "P@ssw0rd!"
+}
+
+###
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "user-password"
+}
+
+###
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin-password"
+}
+
+###
+
+POST http://localhost:8080/refresh_token HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJidWctc2FmYXJpIiwic3ViIjoiYWRtaW4iLCJhdXRob3JpdGllcyI6IkFETUlOIiwiZXhwIjoxNjczODQ1NDc3fQ.D-hJX2I_RBJncmRXCbqdLY3D14w4ypaJdQkxuZpFu7s
+
+###
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "schimidtywarbermanjensen",
+    "password": "P@ssw0rd!"
+}
+
+### Create an account... returns 201 
+
+POST {{url}}/create_account HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "rachelFromFriends5",
+  "password": "P@ssw0rd!"
+}
+
+###
+
+POST {{url}}/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+  "username": "rachelFromFriends5",
+  "password": "P@ssw0rd!"
+}
