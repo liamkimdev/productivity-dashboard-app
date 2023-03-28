@@ -28,7 +28,7 @@ POST {{url}}/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-    "username": "wonderlander1865",
+    "username": "schimidtywarbermanjensen",
     "password": "P@ssw0rd!"
 }
 
