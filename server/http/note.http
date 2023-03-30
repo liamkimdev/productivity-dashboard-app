@@ -1,47 +1,49 @@
 ### Note
 
-@url = http://localhost:8080/dashboard/note
+@url = http://localhost:8080/dashboard/noteWidget/note
 
 ### find all
 GET {{url}} HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InNjaGltaWR0eXdhcmJlcm1hbmplbnNlbiIsImFwcF91c2VyX2lkIjoyLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTgwNDB9.Jw5ERMy8j1D7bcyx7D4ovtijEQGDJr6NLenFhE13oVY
 
 ### find by date
-GET {{url}}/[date] HTTP/1.1
-Authorization: Bearer [token]
+GET {{url}}/byDate/2023-03-31 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTc4Njh9.ak6dGqNovLRLzTnvtIWo9dXu_Em2kKlEs6cvdz7Gsk8
 
 ### find by note id
-@GET {{url}}/1
-Authorization: Bearer [token]
+GET {{url}}/byId/1 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTc4Njh9.ak6dGqNovLRLzTnvtIWo9dXu_Em2kKlEs6cvdz7Gsk8
 
 ### find by description
-@GET {{url}}/[description]
-Authorization: Bearer [token]
+GET {{url}}/byDescription/Note desc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTcyNjF9.qU2qfPN5lRqGKrK6BvNviEIAYAGcUiRZhrrxVpdLO_s
 
 ### create note
 POST {{url}} HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer [token]
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTc4Njh9.ak6dGqNovLRLzTnvtIWo9dXu_Em2kKlEs6cvdz7Gsk8
 
 {
     "title": "Note",
     "description": "Note description",
-    "date": "2023-03-03",
-    "noteWidgetId": 1
+    "date": "2023-03-31",
+    "noteWidget": 1
 }
 
 ### update note 
 PUT {{url}}/1 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer [token]
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTY0MDB9.yGtAdV3cqhX5dGxpdLH1wJ7PaWTDFlQ4egKrq1O8s8I
 
 {
+    "noteId": 1,
     "title": "Note",
     "description": "Updated note description",
-    "date": "2023-03-04",
-    "noteWidgetId": 1
+    "date": "2023-03-31",
+    "noteWidget": 10
 }
 
 
 ### delete note
-DELETE {{url}}/1 HTTP/1.1
-Authorization: Bearer [token]
+DELETE {{url}}/3 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTY0MDB9.yGtAdV3cqhX5dGxpdLH1wJ7PaWTDFlQ4egKrq1O8s8I

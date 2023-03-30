@@ -2,14 +2,14 @@ package org.productivity.data;
 
 import org.productivity.models.Note;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 public interface NoteRepository {
 
     List<Note> findAll();
 
-    List<Note> findByNoteDate(LocalDateTime date);
+    List<Note> findByNoteDate(LocalDate date);
 
     Note findByNoteId(int noteId);
 

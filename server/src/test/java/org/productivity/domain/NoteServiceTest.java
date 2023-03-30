@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,7 +87,7 @@ class NoteServiceTest {
         note.setNoteId(1);
         note.setDescription("Today I had a great day and saw the sun!");
         note.setTitle("A Glorious Day");
-        note.setDate(LocalDateTime.of(1, 1, 1, 1, 1, 1));
+        note.setDate(LocalDate.of(1, 1, 1));
 
         Result<Note> actual = service.createNote(note);
 
@@ -101,7 +100,7 @@ class NoteServiceTest {
         Note note = createNote();
         when(repository.findByNoteId(1)).thenReturn(note);
 
-        Note updatedNote = new Note(1, "Updated", "Updated", LocalDateTime.of(1, 1, 1, 1, 1, 1), 1);
+        Note updatedNote = new Note(1, "Updated", "Updated", LocalDate.of(1, 1, 1), 1);
 
         when(repository.updateNote(updatedNote)).thenReturn(true);
 
@@ -127,7 +126,7 @@ class NoteServiceTest {
         note.setDescription("Today I had a great day and saw the sun!");
         note.setTitle("A Glorious Day");
         note.setNoteWidget(1);
-        note.setDate(LocalDateTime.of(1, 1, 1, 1, 1, 1));
+        note.setDate(LocalDate.of(1, 1, 1));
 
         return note;
     }
@@ -138,7 +137,7 @@ class NoteServiceTest {
         note.setDescription("Mock Today I had a great day and saw the sun!");
         note.setTitle("Mock A Glorious Day");
         note.setNoteWidget(1);
-        note.setDate(LocalDateTime.of(1, 1, 1, 1, 1, 1));
+        note.setDate(LocalDate.of(1, 1, 1));
 
         return note;
     }

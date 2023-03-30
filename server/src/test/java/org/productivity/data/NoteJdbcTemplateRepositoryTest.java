@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +42,7 @@ class NoteJdbcTemplateRepositoryTest {
     @Test
     void shouldFindByNoteDate() {
         // Arrange
-        List<Note> notes = noteJdbcTemplateRepository.findByNoteDate(LocalDateTime.of(2023,3,4,0,0));
+        List<Note> notes = noteJdbcTemplateRepository.findByNoteDate(LocalDate.of(2023,3,4));
 
         // Assert
         assertNotNull(notes);
@@ -72,7 +72,7 @@ class NoteJdbcTemplateRepositoryTest {
         Note note = new Note();
         note.setTitle("Test Title");
         note.setDescription("Test Description");
-        note.setDate(LocalDateTime.of(2023,3,3,0,0,0,0));
+        note.setDate(LocalDate.of(2023,3,3));
         note.setNoteWidget(1);
 
         // Act

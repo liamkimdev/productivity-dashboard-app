@@ -7,10 +7,11 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.time.ZoneOffset;
 import java.util.List;
 import java.sql.Timestamp;
@@ -34,7 +35,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
     }
 
     @Override
-    public List<Note> findByNoteDate(LocalDateTime date) {
+    public List<Note> findByNoteDate(LocalDate date) {
         final String sql = "SELECT * from note WHERE \"date\" = ?;";
 
         List<Note> note = jdbcTemplate.query(sql, new NoteMapper(), date);
@@ -70,7 +71,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, note.getTitle());
             ps.setString(2, note.getDescription());
-            ps.setTimestamp(3, new Timestamp(note.getDate().toEpochSecond(ZoneOffset.UTC)));
+            ps.setDate(3, Date.valueOf(note.getDate()));
             ps.setInt(4, note.getNoteWidget());
 
             return ps;

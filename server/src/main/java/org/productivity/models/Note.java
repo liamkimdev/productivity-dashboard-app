@@ -1,19 +1,22 @@
 package org.productivity.models;
 
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
+
 
 public class Note {
     private int noteId;
     private String title;
     private String description;
-    private LocalDateTime date;
+    private LocalDate date;
     private int noteWidgetId;
 
     public Note() {
     }
 
-    public Note(int noteId, String title, String description, LocalDateTime date, int noteWidgetId) {
+    public Note(int noteId, String title, String description, LocalDate date, int noteWidgetId) {
         this.noteId = noteId;
         this.title = title;
         this.description = description;
@@ -53,11 +56,11 @@ public class Note {
         this.noteWidgetId = noteWidgetId;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 }

@@ -49,7 +49,7 @@ CREATE TABLE note (
 	note_id serial primary key,
 	title VARCHAR(255) default null,
 	description VARCHAR(10000) default null,
-	"date" timestamptz not null,
+	"date" date not null,
     note_widget_id int not null,
     constraint fk_note_note_widget
 		foreign key (note_widget_id)

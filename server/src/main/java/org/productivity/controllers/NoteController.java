@@ -3,11 +3,13 @@ package org.productivity.controllers;
 import org.productivity.domain.NoteService;
 import org.productivity.domain.Result;
 import org.productivity.models.Note;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -26,8 +28,8 @@ public class NoteController {
         return service.findAll();
     }
 
-    @GetMapping("/{date}")
-    public ResponseEntity<List<Note>> findByNoteDate(@PathVariable LocalDateTime date) {
+    @GetMapping("/byDate/{date}")
+    public ResponseEntity<List<Note>> findByNoteDate(@PathVariable("date") @DateTimeFormat(pattern="yyyy-MM-dd") LocalDate date) {
         List<Note> notes = service.findByNoteDate(date);
 
         if(date == null) {
@@ -37,8 +39,8 @@ public class NoteController {
         return ResponseEntity.ok(notes);
     }
 
-    @GetMapping("/{noteId}")
-    public ResponseEntity<Note> findByNoteId(@RequestBody int noteId){
+    @GetMapping("/byId/{noteId}")
+    public ResponseEntity<Note> findByNoteId(@PathVariable int noteId){
         Note note = service.findByNoteId(noteId);
 
         if (note == null) {
@@ -48,8 +50,8 @@ public class NoteController {
         return ResponseEntity.ok(note);
     }
 
-    @GetMapping("/{description}")
-    public ResponseEntity<List<Note>> findByNoteDescription(@RequestBody String description) {
+    @GetMapping("/byDescription/{description}")
+    public ResponseEntity<List<Note>> findByNoteDescription(@PathVariable String description) {
         List<Note> notes = service.findByNoteDescription(description);
 
         if (description == null) {

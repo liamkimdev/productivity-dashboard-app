@@ -1,6 +1,6 @@
 ### Dashboard
 
-@url = http://localhost:3000/dashboard
+@url = http://localhost:8080/dashboard
 
 GET {{url}}/1 HTTP/1.1
 
@@ -8,11 +8,11 @@ GET {{url}}/1 HTTP/1.1
 
 POST {{url}} HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer [token]
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTY4NDZ9.BjzRejSPpxzJRN1kaPvNvxW5zOLEkPgVtcT5Z5U9_XY
 
 
 {
-    "dashboardName": "My Dashboard"
+    "dashboardName": "My Dashboard",
     "userId": 1
 }
 
@@ -20,10 +20,11 @@ Authorization: Bearer [token]
 
 PUT {{url}}/1 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer [token]
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTE4MDF9.qhL8hvbi-qAhG7D6JPYtoD2EyT-CA54RONYSF0pncvs
 
-{
-    "dashboardName": "My Dashboard Updated"
+{   
+    "dashboardId": 1,
+    "dashboardName": "My Dashboard Updated",
     "userId": 1
 }
 

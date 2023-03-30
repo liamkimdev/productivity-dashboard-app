@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 
@@ -45,17 +44,34 @@ public class SecurityConfig {
 
                 // user
                 .antMatchers(HttpMethod.POST,
-                        "/api/user").permitAll()
+                        "/user").permitAll()
                 .antMatchers(HttpMethod.GET,
-                        "/api/ride_on/user/*").hasAnyAuthority("USER", "ADMIN")
+                        "/user/*").hasAnyAuthority("USER", "ADMIN")
 
                 // dashboard
                 .antMatchers(HttpMethod.GET,
-                        "/dashboard", "/dashboard/*").hasAnyAuthority("USER", "ADMIN")
+                        "/dashboard/{dashboardId}").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
                         "/dashboard").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT,
                         "/dashboard/*").hasAnyAuthority("USER", "ADMIN")
+
+                // noteWidget
+                .antMatchers(HttpMethod.POST,
+                        "/dashboard/noteWidget").hasAnyAuthority("USER", "ADMIN")
+
+                .antMatchers(HttpMethod.DELETE,
+                        "/dashboard/noteWidget/*").hasAnyAuthority("USER", "ADMIN")
+
+                // note
+                .antMatchers(HttpMethod.GET,
+                        "/dashboard/noteWidget/note", "/dashboard/noteWidget/note/**").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.POST,
+                        "/dashboard/noteWidget/note").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT,
+                        "/dashboard/noteWidget/note/*").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE,
+                        "/dashboard/noteWidget/note/*").hasAnyAuthority("USER", "ADMIN")
 
                 .antMatchers("/**").denyAll()
                 .and()

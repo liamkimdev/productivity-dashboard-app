@@ -5,6 +5,7 @@ import org.productivity.models.Note;
 import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class NoteMapper implements RowMapper<Note> {
 
@@ -15,7 +16,7 @@ public class NoteMapper implements RowMapper<Note> {
         note.setTitle(rs.getString("title"));
         note.setDescription(rs.getString("description"));
         //note.setDate(rs.getDate("date"));
-        note.setDate(rs.getDate("date").toLocalDate().atStartOfDay());
+        note.setDate((rs.getDate("date").toLocalDate()));
         note.setNoteWidget(rs.getInt("note_widget_id"));
 
         return note;
