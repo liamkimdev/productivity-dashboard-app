@@ -1,5 +1,6 @@
 package org.productivity.controllers;
 
+import org.productivity.App;
 import org.productivity.domain.Result;
 import org.productivity.models.AppUser;
 import org.productivity.security.AppUserService;
@@ -13,14 +14,13 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/user")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
@@ -89,5 +89,14 @@ public class AuthController {
         map.put("appUserId", result.getPayload().getAppUserId());
 
         return new ResponseEntity<>(map, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{username}")
+    public ResponseEntity<AppUser> findByUserId(@PathVariable String username){
+        UserDetails user = appUserService.loadUserByUsername(username);
+        if(user == null){;
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok((AppUser) user);
     }
 }

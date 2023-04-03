@@ -13,7 +13,6 @@
 
 1. Utilities Folder
     - Message
-    - Nav (step 1)
     - NotFound
     - Sign-in/Sign-up
     

@@ -1,6 +1,6 @@
 ### User
 
-@url = http://localhost:8080
+@url = http://localhost:8080/user
 
 ### Bad credentials... returns 403
 
@@ -100,3 +100,9 @@ Content-Type: application/json
   "username": "rachelFromFriends5",
   "password": "P@ssw0rd!"
 }
+
+###
+
+GET {{url}}/rachelFromFriends5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODA1NDEzOTN9.y2jofIr1clPVhie6clImuoGWhNzZrzmw5uU3gYVyRUw
+

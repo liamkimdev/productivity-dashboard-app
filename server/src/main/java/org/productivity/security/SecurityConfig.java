@@ -38,13 +38,10 @@ public class SecurityConfig {
         http.cors();
 
         http.authorizeRequests()
-                .antMatchers( "/authenticate").permitAll()
-                .antMatchers("/create_account").permitAll()
-                .antMatchers("/refresh_token").authenticated()
-
                 // user
-                .antMatchers(HttpMethod.POST,
-                        "/user").permitAll()
+                .antMatchers( "/user/authenticate").permitAll()
+                .antMatchers("/user/create_account").permitAll()
+                .antMatchers("/user/refresh_token").authenticated()
                 .antMatchers(HttpMethod.GET,
                         "/user/*").hasAnyAuthority("USER", "ADMIN")
 
