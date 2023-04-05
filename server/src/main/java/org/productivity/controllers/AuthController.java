@@ -94,7 +94,7 @@ public class AuthController {
     @GetMapping("/{username}")
     public ResponseEntity<AppUser> findByUserId(@PathVariable String username){
         UserDetails user = appUserService.loadUserByUsername(username);
-        if(user == null){;
+        if(user == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return ResponseEntity.ok((AppUser) user);
