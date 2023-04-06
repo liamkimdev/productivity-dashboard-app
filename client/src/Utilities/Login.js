@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import uuid from 'react-uuid';
 import '../Styles/Login.css';
+import AuthContext from '../Contexts/AuthContext';
 
 function Login({ messages, setMessages }) {
   const {
@@ -12,6 +13,7 @@ function Login({ messages, setMessages }) {
   } = useForm();
 
   const navigate = useNavigate();
+  const auth = useContext(AuthContext);
 
   const onSubmit = (userData) => {
     fetch('http://localhost:8080/user/authenticate', {
@@ -22,19 +24,42 @@ function Login({ messages, setMessages }) {
       body: JSON.stringify(userData),
     })
       .then((response) => {
-        
         if (response.status === 200) {
           return response.json();
-        } else if (response.status === 403) {
+        } else {
+          /*
+            HTTP requests to force reject:
+            400 Bad Request
+            401 Unauthorized
+            403 Forbidden
+            404 Not Found
+            500 Internal Server Error
+          */
+          return Promise.reject(response);
+        }
+      })
+      .then((data) => {
+        auth.login(data.jwt_token);
+        navigate('/');
+        setMessages([
+          ...messages,
+          {
+            id: uuid(),
+            type: 'success',
+            text: 'Welcome to Your Dashboard!',
+          },
+        ]);
+      })
+      .catch((error) => {
+        if (error.status === 403) {
           setMessages([
             ...messages,
             {
               id: uuid(),
               type: 'failure',
               text: 'Account could not be logged in at this time.',
-            },        
+            },
           ]);
-        throw new Error('Account could not be logged in at this time.');
         } else {
           setMessages([
             ...messages,
@@ -46,26 +71,7 @@ function Login({ messages, setMessages }) {
           ]);
           navigate('/notFound');
         }
-      })
-      .then((data) => {
-        console.log(data);
-        // auth.login(data.jwt_token)
-        navigate('/');
-        setMessages([
-          ...messages,
-          {
-            id: uuid(),
-            type: 'success',
-            text: 'Welcome to Your Dashboard!',
-          },
-        ]);
-      })
-      .catch((error) =>
-        setMessages([
-          ...messages,
-          { id: uuid(), type: 'failure', text: error.message },
-        ])
-      );
+      });
   };
 
   return (

@@ -9,7 +9,7 @@ function NotFound() {
         setTimeout(()=>{
             navigate("/");
         }, 5000)
-    }, [])
+    }, [navigate])
 
     return (
         <>
