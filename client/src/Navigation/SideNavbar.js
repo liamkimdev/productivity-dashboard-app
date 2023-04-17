@@ -8,11 +8,12 @@ function SideNavbar() {
   const { collapseSidebar } = useProSidebar();
 
   return (
-    <div className="side-navbar ">
+    <div className="side-navbar">
       <Menu>
         <MenuItem icon={<AlignCenter />} onClick={() => collapseSidebar()}>
           WIDGET
         </MenuItem>
+        <MenuItem icon={<AlignCenter />}>WIDGET</MenuItem>
       </Menu>
     </div>
   );

@@ -5,6 +5,9 @@ import uuid from 'react-uuid';
 import '../Styles/Login.css';
 import AuthContext from '../Contexts/AuthContext';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../store/slices/AuthSlice.js';
+
 function Login({ messages, setMessages }) {
   const {
     register,
@@ -12,8 +15,14 @@ function Login({ messages, setMessages }) {
     formState: { errors },
   } = useForm();
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
+
+  //Redux's state.
+  const user = useSelector((state) => state.auth.user);
+  const authToken = useSelector((state) => state.auth.authToken);
+  const formLogInType = useSelector((state) => state.auth.formLogInType);
 
   const onSubmit = (userData) => {
     fetch('http://localhost:8080/user/authenticate', {
@@ -39,7 +48,12 @@ function Login({ messages, setMessages }) {
         }
       })
       .then((data) => {
-        auth.login(data.jwt_token);
+        // auth.login(data.jwt_token);
+
+        console.log(data);
+        // setting the global state
+        dispatch(login(data));
+
         navigate('/');
         setMessages([
           ...messages,
@@ -78,6 +92,9 @@ function Login({ messages, setMessages }) {
     <div className="row login-container">
       <div className="col-lg-4 col-md-6">
         <h3>Login</h3>
+
+        {console.log(user + '\n' + authToken)}
+
         <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
           <label className="form-label mt-3" htmlFor="user-username">
             Username

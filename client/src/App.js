@@ -71,11 +71,14 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <div className="app">
-        <div className="navbar-container">
+        <div>
           <Navbar />
-          <Sidebar>
-            <SideNavbar />
-          </Sidebar>
+
+          <div className="navbar-container">
+            <Sidebar>
+              <SideNavbar />
+            </Sidebar>
+          </div>
 
           <MessageFactory messages={messages} setMessages={setMessages} />
 
@@ -88,16 +91,16 @@ function App() {
             <Route
               path="/dashboard"
               element={
-                currentUser ? (
-                  <Dashboard
-                    dashboard={dashboard}
-                    setDashboard={setDashboard}
-                    messages={messages}
-                    setMessages={setMessages}
-                  />
-                ) : (
-                  <Navigate to="/" />
-                )
+                // currentUser ? (
+                <Dashboard
+                  dashboard={dashboard}
+                  setDashboard={setDashboard}
+                  messages={messages}
+                  setMessages={setMessages}
+                />
+                // ) : (
+                //   <Navigate to="/" />
+                // )
               }
             />
             <Route

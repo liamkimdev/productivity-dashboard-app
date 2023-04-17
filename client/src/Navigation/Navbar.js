@@ -1,7 +1,6 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useNavigate, NavLink } from 'react-router-dom';
+import '../Navigation/Navbar.css';
 
 function MyNavbar() {
   const navigate = useNavigate();
@@ -9,12 +8,19 @@ function MyNavbar() {
   return (
     <>
       <Navbar bg="light" expand="lg">
-  
-          <Navbar.Brand href="/home">Productivity Dashboard</Navbar.Brand>      
-              <NavLink to="/home" className="nav-links"> Home </NavLink>
-              <NavLink to="/login" className="nav-links"> Login </NavLink>
-              <NavLink to="/logout" className="nav-links"> Logout </NavLink>
- 
+        <Navbar.Brand href="/home">Productivity Dashboard</Navbar.Brand>
+
+        {/* You only see Home Page if you are NOT signed in */}
+        <NavLink to="/" className="nav-links">
+          Home
+        </NavLink>
+
+        <NavLink to="/login" className="nav-links">
+          Login
+        </NavLink>
+        <NavLink to="/logout" className="nav-links">
+          Logout
+        </NavLink>
       </Navbar>
     </>
   );
