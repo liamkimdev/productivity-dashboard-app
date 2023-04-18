@@ -73,7 +73,7 @@ class NoteJdbcTemplateRepositoryTest {
         note.setTitle("Test Title");
         note.setDescription("Test Description");
         note.setDate(LocalDate.of(2023,3,3));
-        note.setNoteWidget(1);
+        note.setDashboardId(1);
 
         // Act
         Note actualNote = noteJdbcTemplateRepository.createNote(note);

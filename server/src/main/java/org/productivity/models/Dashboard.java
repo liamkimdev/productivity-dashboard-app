@@ -1,5 +1,7 @@
 package org.productivity.models;
 
+import java.util.List;
+
 public class Dashboard {
 
     private int dashboardId;
@@ -8,13 +10,15 @@ public class Dashboard {
 
     private int userId;
 
-    public Dashboard() {
-    }
+    private List<Object> allWidgets;
 
-    public Dashboard(int dashboardId, String dashboardName, int userId) {
+    public Dashboard(){}
+
+    public Dashboard(int dashboardId, String dashboardName, int userId, List<Object> allWidgets) {
         this.dashboardId = dashboardId;
         this.dashboardName = dashboardName;
         this.userId = userId;
+        this.allWidgets = allWidgets;
     }
 
     public int getDashboardId() {
@@ -40,4 +44,15 @@ public class Dashboard {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
+    public List<Object> getAllWidgets() {
+        return allWidgets;
+    }
+
+    public void setAllWidgets(List<Object> allWidgets) {
+        this.allWidgets = allWidgets;
+    }
+
+
+
 }

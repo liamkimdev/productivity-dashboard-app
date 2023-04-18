@@ -91,7 +91,7 @@ class NoteServiceTest {
 
         Result<Note> actual = service.createNote(note);
 
-        assertEquals("Note Widget Id is required.", actual.getMessages().get(0));
+        assertEquals("Note Dashboard Id is required.", actual.getMessages().get(0));
         assertEquals(ResultType.INVALID, actual.getType());
     }
 
@@ -125,7 +125,7 @@ class NoteServiceTest {
         note.setNoteId(1);
         note.setDescription("Today I had a great day and saw the sun!");
         note.setTitle("A Glorious Day");
-        note.setNoteWidget(1);
+        note.setDashboardId(1);
         note.setDate(LocalDate.of(1, 1, 1));
 
         return note;
@@ -136,7 +136,7 @@ class NoteServiceTest {
         note.setNoteId(2);
         note.setDescription("Mock Today I had a great day and saw the sun!");
         note.setTitle("Mock A Glorious Day");
-        note.setNoteWidget(1);
+        note.setDashboardId(1);
         note.setDate(LocalDate.of(1, 1, 1));
 
         return note;

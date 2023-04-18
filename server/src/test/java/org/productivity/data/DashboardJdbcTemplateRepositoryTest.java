@@ -29,6 +29,8 @@ class DashboardJdbcTemplateRepositoryTest {
 
         assertEquals(1, dashboard.getDashboardId());
         assertEquals("Test Dashboard One", dashboard.getDashboardName());
+        assertEquals(1, dashboard.getAllWidgets().size());
+        assertTrue(dashboard.getAllWidgets().size() > 0);
     }
 
     @Test

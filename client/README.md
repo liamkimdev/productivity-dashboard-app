@@ -43,4 +43,11 @@
 
 7. index.css
 
+## 
+
+1. Redux
+2. Bootstrap
+3. React Hook Form
+4. React Pro Sidebar 
+
 

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import uuid from 'react-uuid';
+import '../Styles/Register.css';
 
 function Register({ messages, setMessages }) {
   const {
@@ -59,7 +60,7 @@ function Register({ messages, setMessages }) {
   };
 
   return (
-    <div className="row">
+    <div className="row register-container">
       <div className="col-lg-4 col-md-6">
         <h3>Register</h3>
         <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
@@ -111,6 +112,17 @@ function Register({ messages, setMessages }) {
           >
             Cancel
           </button>
+
+          <br />
+          <br />
+
+          <p>
+            Already a member?{' '}
+            <a href="#!" onClick={() => navigate('/login')}>
+              {' '}
+              Sign In!{' '}
+            </a>
+          </p>
         </form>
       </div>
     </div>

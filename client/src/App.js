@@ -71,10 +71,10 @@ function App() {
   return (
     <AuthContext.Provider value={auth}>
       <div className="app">
-        <div>
+        <div className="navbar-container">
           <Navbar />
 
-          <div className="navbar-container">
+          <div className="">
             <Sidebar>
               <SideNavbar />
             </Sidebar>

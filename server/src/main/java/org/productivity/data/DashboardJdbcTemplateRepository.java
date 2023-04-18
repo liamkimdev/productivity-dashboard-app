@@ -2,14 +2,18 @@ package org.productivity.data;
 
 import org.productivity.data.mappers.DashboardMapper;
 import org.productivity.models.Dashboard;
+import org.productivity.models.Note;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.productivity.data.mappers.NoteMapper;
+
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -25,10 +29,14 @@ public class DashboardJdbcTemplateRepository implements DashboardRepository {
     public Dashboard findByDashboardId(int dashboardId) {
         final String sql = "SELECT * from dashboard WHERE dashboard_id = ?;";
 
-        Dashboard dashboard = jdbcTemplate.query(sql, new DashboardMapper(), dashboardId).stream()
-                .findAny().orElse(null);
+        Dashboard dashboard = jdbcTemplate.query(sql, new DashboardMapper(), dashboardId)
+                .stream()
+                .findAny()
+                .orElse(null);
 
-        return dashboard;
+        Dashboard dashboardWithWidgets = addWidgets(dashboard);
+
+        return dashboardWithWidgets;
     }
 
     @Override
@@ -55,6 +63,7 @@ public class DashboardJdbcTemplateRepository implements DashboardRepository {
         return dashboard;
     }
 
+    //    TODO: edit to account for widgets
     @Override
     public boolean updateDashboard(Dashboard dashboard) {
 
@@ -62,10 +71,33 @@ public class DashboardJdbcTemplateRepository implements DashboardRepository {
                 + "dashboard_name = ? "
                 + "WHERE dashboard_id = ?;";
 
-        boolean updateConfirmation =  jdbcTemplate.update(sql,
+        boolean updateConfirmation = jdbcTemplate.update(sql,
                 dashboard.getDashboardName(),
                 dashboard.getDashboardId()) > 0;
 
         return updateConfirmation;
+    }
+
+    private Dashboard addWidgets(Dashboard dashboard) {
+        //1) Create a sql to select specific widget with dashboard id
+        final String noteSql = "select * from note where dashboard_id = ?;";
+
+        // 2) Query for the widget
+        List<Note> notes = jdbcTemplate.query(noteSql, new NoteMapper(), dashboard.getDashboardId());
+
+        List<Object> allWidgets = new ArrayList<>();
+
+        //3) If widget exists then add it to all widgets
+
+        if (notes.size() > 0) {
+            allWidgets.add(notes);
+        }
+
+        // TODO: Add other widgets here when created (Pom, etc)
+
+        // 4) Set all widgets to dashboard then return complete dashboard
+        dashboard.setAllWidgets(allWidgets);
+
+        return dashboard;
     }
 }

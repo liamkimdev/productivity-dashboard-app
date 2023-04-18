@@ -63,7 +63,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
     @Override
     public Note createNote(Note note) {
-        final String sql = "INSERT into note (title, description, \"date\", note_widget_id) "
+        final String sql = "INSERT into note (title, description, \"date\", dashboard_id) "
                     + "values (?, ?, ?, ?);";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -72,7 +72,7 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
             ps.setString(1, note.getTitle());
             ps.setString(2, note.getDescription());
             ps.setDate(3, Date.valueOf(note.getDate()));
-            ps.setInt(4, note.getNoteWidget());
+            ps.setInt(4, note.getDashboardId());
 
             return ps;
             }, keyHolder);
@@ -116,4 +116,16 @@ public class NoteJdbcTemplateRepository implements NoteRepository{
 
         return deleteConfirmation;
     }
+
+    @Override
+    public boolean deleteAllNotes(int dashboardId) {
+
+        final String sql = "DELETE * from note WHERE dashboard_id = ?;";
+
+        boolean deleteConfirmation = jdbcTemplate.update(sql,
+                dashboardId) > 0;
+
+        return deleteConfirmation;
+    }
+
 }

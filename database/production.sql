@@ -36,22 +36,13 @@ CREATE TABLE dashboard (
 	    references app_user (user_id)
 );
 
-CREATE TABLE note_widget (
-	note_widget_id serial primary key,
-    title varchar(255) default null,
-	dashboard_id int not null,
-	constraint fk_note_widget_dashboard
-		foreign key (dashboard_id)
-		references dashboard (dashboard_id)
-);
-
 CREATE TABLE note (
 	note_id serial primary key, 
 	title VARCHAR(255) default null,
 	description VARCHAR(10000) default null,
 	"date" date not null,
-    note_widget_id int not null,
-    constraint fk_note_note_widget
-		foreign key (note_widget_id)
-        references note_widget (note_widget_id)
+    dashboard_id int not null,
+    constraint fk_note_dashboard
+		foreign key (dashboard_id)
+        references dashboard (dashboard_id)
 );

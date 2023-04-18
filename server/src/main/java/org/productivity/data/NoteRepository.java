@@ -20,4 +20,6 @@ public interface NoteRepository {
     boolean updateNote(Note note);
 
     boolean deleteNoteById(int noteId);
+
+    boolean deleteAllNotes(int dashboardId);
 }

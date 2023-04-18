@@ -84,8 +84,8 @@ public class NoteService {
             result.addMessage(ResultType.INVALID, "Timestamp is required.");
         }
 
-        if (note.getNoteWidget() <= 0) {
-            result.addMessage(ResultType.INVALID, "Note Widget Id is required.");
+        if (note.getDashboardId() <= 0) {
+            result.addMessage(ResultType.INVALID, "Note Dashboard Id is required.");
         }
 
         return result;

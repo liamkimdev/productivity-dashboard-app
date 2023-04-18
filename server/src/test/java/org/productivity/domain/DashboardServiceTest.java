@@ -74,7 +74,7 @@ class DashboardServiceTest {
         Dashboard dashboard = createDashboard();
         when(repository.findByDashboardId(1)).thenReturn(dashboard);
 
-        Dashboard updatedDashboard = new Dashboard(1, "Name", 1);
+        Dashboard updatedDashboard = new Dashboard(1, "Name", 1, null);
 
         when(repository.updateDashboard(updatedDashboard)).thenReturn(true);
 

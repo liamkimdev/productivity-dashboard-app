@@ -15,9 +15,8 @@ public class NoteMapper implements RowMapper<Note> {
         note.setNoteId(rs.getInt("note_id"));
         note.setTitle(rs.getString("title"));
         note.setDescription(rs.getString("description"));
-        //note.setDate(rs.getDate("date"));
         note.setDate((rs.getDate("date").toLocalDate()));
-        note.setNoteWidget(rs.getInt("note_widget_id"));
+        note.setDashboardId(rs.getInt("dashboard_id"));
 
         return note;
     }
