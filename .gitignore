@@ -149,3 +149,6 @@ fabric.properties
 # Postgres Data Folder
 database/postgres-data/
 database/postgres-data-test/
+# DS_Store
+database/.DS_Store
+.DS_Store
