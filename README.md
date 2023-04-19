@@ -1,4 +1,4 @@
-# productivity-dashboard-app
+# Productivity Dashboard App
 Full-Stack Productivity Dashboard Application built from scratch front-end to back-end.
 
 ## CRUD Application - MVC Pattern
@@ -15,7 +15,7 @@ Full-Stack Productivity Dashboard Application built from scratch front-end to ba
 - Project Management Tool: GitHub Projects
 - Wireframe: Figma
 
-### Mission Statement/ Vision statement
+### Mission Statement / Vision statement
 - One stop shop to track productivity, organize your day, and track personal progress
 
 ### Generalized Challenges
@@ -23,21 +23,21 @@ Full-Stack Productivity Dashboard Application built from scratch front-end to ba
 
 ### What is the application?
 - A dashboard app that has CRUD widgets - clock, claender, tasks, time per task...
-- user accounts - with unique dashboard
-- teams feature with permissions (roles) granted to users
-- integrates google connet and also our own developed widgets (ex. pomodoro)
+- User accounts - with unique dashboard
+- Teams feature with permissions (roles) granted to users
+- Integrates google connet and also our own developed widgets (ex. pomodoro)
 
 ### What do you want in the dashboard?
-- planner aplication that tracks what you do -> simple no openid Connect, but has all the links for the widgets you use
+- Planner aplication that tracks what you do -> simple no openid Connect, but has all the links for the widgets you use
 - A mix of both-> the most used widgets would connect (calender: google calender),  genreal music(no options)
 - Impliment one open id connect to create user profile but also provide linking to calender and other google services.
 
 ### Why is this application usefull?
 - An everyday application to combine other applications into one
-- it is customizable to users but also provides gnereal team use 
+- It is customizable to users but also provides gnereal team use 
 
 ### Who would use the application?
-- incoming dev10 associates -> provide utility use
+- Incoming dev10 associates -> provide utility use
 - Dev10 asociates -> provides purpose and personal connection -> it is motivating 
 
 ### What do you have open when you start your day? -> connect all of these into one dashboard
