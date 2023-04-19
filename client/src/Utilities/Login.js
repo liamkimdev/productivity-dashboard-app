@@ -20,9 +20,7 @@ function Login({ messages, setMessages }) {
   const auth = useContext(AuthContext);
 
   //Redux's state.
-  const user = useSelector((state) => state.auth.user);
   const authToken = useSelector((state) => state.auth.authToken);
-  const formLogInType = useSelector((state) => state.auth.formLogInType);
 
   const onSubmit = (userData) => {
     fetch('http://localhost:8080/user/authenticate', {
@@ -93,7 +91,7 @@ function Login({ messages, setMessages }) {
       <div className="col-lg-4 col-md-6">
         <h3>Login</h3>
 
-        {console.log(user + '\n' + authToken)}
+        {console.log(authToken)}
 
         <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
           <label className="form-label mt-3" htmlFor="user-username">

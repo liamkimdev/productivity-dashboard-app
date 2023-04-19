@@ -3,16 +3,27 @@ import { useForm } from 'react-hook-form';
 import uuid from 'react-uuid';
 import '../Styles/Register.css';
 
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../store/slices/AuthSlice.js';
+import { createDashboard } from '../store/slices/DashboardSlice';
+
+
 function Register({ messages, setMessages }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const navigate = useNavigate();
+  // Redux's state.
+  const authToken = useSelector((state) => state.auth.authToken);
 
   const onSubmit = (userData) => {
+
     fetch('http://localhost:8080/user/create_account', {
       method: 'POST',
       headers: {
@@ -22,6 +33,7 @@ function Register({ messages, setMessages }) {
     })
       .then((response) => {
         if (response.status === 201) {
+
           setMessages([
             ...messages,
             {
@@ -30,8 +42,68 @@ function Register({ messages, setMessages }) {
               text: 'Account successfully created. Please sign in.',
             },
           ]);
+
+          //Authenticate newly created account
+      fetch('http://localhost:8080/user/authenticate', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userData),
+    })
+  }})
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        } else {
+          /*
+            HTTP requests to force reject:
+            400 Bad Request
+            401 Unauthorized
+            403 Forbidden
+            404 Not Found
+            500 Internal Server Error
+          */
+          return Promise.reject(response);
+        }
+      })
+      .then((data) => {
+        // auth.login(data.jwt_token);
+
+        console.log(data);
+        // setting the global state
+        dispatch(login(data));
+
+          // Plug in Dashboard Name & User ID
+          const dashboardData = {
+            dashboardName: data.username + "'s Dashboard",
+            userId: data.userId,
+          };
+          
+          // setting the global state
+          dispatch(createDashboard(dashboardData));
+
+          // create dashboard for the user
+          fetch('http://localhost:8080/dashboard', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer ' + authToken
+            },
+            body: JSON.stringify(dashboardData),
+          })
+            .then((response) => {
+              if (response.status === 201) {
+                console.log('Dashboard created successfully');
+              } else {
+                console.log('Dashboard creation failed');
+              }
+            })
+            .catch((error) => console.log(error));
+            
           navigate('/login');
-        } else if (response.status === 400) {
+
+        } else  if(response.status === 400) {
           setMessages([
             ...messages,
             {

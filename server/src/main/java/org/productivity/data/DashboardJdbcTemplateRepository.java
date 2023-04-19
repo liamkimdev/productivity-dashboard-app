@@ -36,8 +36,23 @@ public class DashboardJdbcTemplateRepository implements DashboardRepository {
 
         Dashboard dashboardWithWidgets = addWidgets(dashboard);
 
+        return dashboard;
+    }
+
+    @Override
+    public Dashboard findDashboardByUserId(int userId) {
+        final String sql = "SELECT * from dashboard WHERE user_id = ?;";
+
+        Dashboard dashboard = jdbcTemplate.query(sql, new DashboardMapper(), userId)
+                .stream()
+                .findFirst()
+                .orElse(null);
+
+        Dashboard dashboardWithWidgets = addWidgets(dashboard);
+
         return dashboardWithWidgets;
     }
+
 
     @Override
     public Dashboard createDashboard(Dashboard dashboard) {
@@ -79,6 +94,11 @@ public class DashboardJdbcTemplateRepository implements DashboardRepository {
     }
 
     private Dashboard addWidgets(Dashboard dashboard) {
+
+        if (dashboard == null ) {
+            return null;
+        }
+
         //1) Create a sql to select specific widget with dashboard id
         final String noteSql = "select * from note where dashboard_id = ?;";
 

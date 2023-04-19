@@ -4,27 +4,27 @@ export const authSlice = createSlice({
   name: 'auth',
 
   initialState: {
-    user: {},
-    authToken: '', // **** only this
-    authorities: '',
-    //token: 'log in',
+    authToken: '',
+    userId: '',
+    username: '',
+    authorities: [],
   },
 
   reducers: {
     login: (state, action) => {
-      console.log(action.payload);
-      state.user = action.payload.user;
       state.authToken = action.payload.jwt_token;
+      state.userId = action.payload.userId;
+      state.username = action.payload.username;
       state.authorities = action.payload.authorities;
     },
     logout: (state) => {
       state.authToken = '';
-      state.user = {};
+      state.userId = '';
+      state.username = '';
+      state.authorities = [];
     },
-
-    
   },
 });
 
-export const { login, logout, setFormLogInType } = authSlice.actions;
+export const { login, logout } = authSlice.actions;
 export default authSlice.reducer;

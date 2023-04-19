@@ -48,17 +48,13 @@ public class SecurityConfig {
                 // dashboard
                 .antMatchers(HttpMethod.GET,
                         "/dashboard/{dashboardId}").hasAnyAuthority("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET,
+                        "/dashboard/user/{userId}").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST,
                         "/dashboard").hasAnyAuthority("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT,
                         "/dashboard/*").hasAnyAuthority("USER", "ADMIN")
 
-                // noteWidget
-                .antMatchers(HttpMethod.POST,
-                        "/dashboard/noteWidget").hasAnyAuthority("USER", "ADMIN")
-
-                .antMatchers(HttpMethod.DELETE,
-                        "/dashboard/noteWidget/*").hasAnyAuthority("USER", "ADMIN")
 
                 // note
                 .antMatchers(HttpMethod.GET,

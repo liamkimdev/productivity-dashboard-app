@@ -11,13 +11,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/user")
@@ -36,7 +36,7 @@ public class AuthController {
     }
 
     @PostMapping("/authenticate")
-    public ResponseEntity<Map<String, String>> authenticate(@RequestBody Map<String, String> credentials) {
+    public ResponseEntity<Map<String, Object>> authenticate(@RequestBody Map<String, String> credentials) {
 
         UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(credentials.get("username"), credentials.get("password"));
@@ -47,8 +47,24 @@ public class AuthController {
             if (authentication.isAuthenticated()) {
                 String jwtToken = converter.getTokenFromUser((AppUser) authentication.getPrincipal());
 
-                HashMap<String, String> map = new HashMap<>();
+                HashMap<String, Object> map = new HashMap<>();
+
+                // Add user info to the response payload
+                AppUser user = (AppUser) authentication.getPrincipal();
+                map.put("userId", user.getAppUserId());
+                map.put("username", user.getUsername());
                 map.put("jwt_token", jwtToken);
+
+                // Add authorities to the response payload
+                Collection<GrantedAuthority> authorities = user.getAuthorities();
+                List<String> authorityList = new ArrayList<>();
+
+                for (GrantedAuthority authority : authorities) {
+                    authorityList.add(authority.getAuthority());
+                }
+
+                String authoritiesString = String.join(",", authorityList);
+                map.put("authorities", authoritiesString);
 
                 return new ResponseEntity<>(map, HttpStatus.OK);
             }
@@ -92,7 +108,7 @@ public class AuthController {
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<AppUser> findByUserId(@PathVariable String username){
+    public ResponseEntity<AppUser> findByUsername(@PathVariable String username){
         UserDetails user = appUserService.loadUserByUsername(username);
         if(user == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

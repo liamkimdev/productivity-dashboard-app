@@ -2,30 +2,39 @@
 
 @url = http://localhost:8080/dashboard
 
-GET {{url}}/1 HTTP/1.1
+### Get Dashboard by dashboard Id
+
+GET {{url}}/7 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzMjEiLCJhcHBfdXNlcl9pZCI6NywiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjgxOTI4NjU3fQ.66KzSksSMuc0B8uEVW_-rfjUjDLD4WZXZtYsTmIH_ac
+
+### Get Dashboard by user Id
+
+GET {{url}}/user/8 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzMjgiLCJhcHBfdXNlcl9pZCI6OCwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjgxOTI4ODM4fQ.4c2B_nq-6v8_mofqiZwZ8xf6sJNrIVsShW0BggRCr0o
 
 ### Create Dashboard
 
 POST {{url}} HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTY4NDZ9.BjzRejSPpxzJRN1kaPvNvxW5zOLEkPgVtcT5Z5U9_XY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzMjgiLCJhcHBfdXNlcl9pZCI6OCwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjgxOTMxNDAyfQ.Ea0QMFLHYyKOHYH0xStu12sQ5KB49Z802oNrMur3Afs
 
 
 {
     "dashboardName": "My Dashboard",
-    "userId": 1
+    "userId": 8
 }
 
-### Update Dashboard
+### Update Dashboard - dashboardId needs to match the url and the request body
 
-PUT {{url}}/1 HTTP/1.1
+PUT {{url}}/4 HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTE4MDF9.qhL8hvbi-qAhG7D6JPYtoD2EyT-CA54RONYSF0pncvs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzNSIsImFwcF91c2VyX2lkIjoxLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODE5MjE3MDV9.dnp7vvibsG1oShTGG5rmAu75x5sHyin5P5f0M1aQGjs
 
 {   
-    "dashboardId": 1,
+    "dashboardId": 4,
     "dashboardName": "My Dashboard Updated",
-    "userId": 1
+    "userId": 1,
+    "allWidgets": null
 }
 
 

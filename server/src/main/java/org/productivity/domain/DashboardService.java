@@ -20,14 +20,24 @@ public class DashboardService {
         return dashboardRepository.findByDashboardId(dashboardId);
     }
 
+    public Dashboard findByUserId(int userId) {
+        return dashboardRepository.findDashboardByUserId(userId);
+    }
+
     public Result<Dashboard> createDashboard(Dashboard dashboard) {
         Result<Dashboard> result = validate(dashboard);
+
+        Dashboard userDashboard = findByUserId(result.getPayload().getUserId());
+
+        if (userDashboard != null) {
+            result.addMessage(ResultType.INVALID, "User cannot have more than one dashboard.");
+        }
 
         if (!result.isSuccess()) {
             return result;
         }
 
-        dashboard = dashboardRepository.createDashboard(dashboard);
+        dashboard = dashboardRepository.createDashboard(result.getPayload());
         result.setPayload(dashboard);
         return result;
     }
@@ -53,10 +63,10 @@ public class DashboardService {
     private Result<Dashboard> validate(Dashboard dashboard) {
         Result<Dashboard> result = new Result<>();
 
-        if (dashboard == null) {
-            result.addMessage(ResultType.INVALID, "Dashboard cannot be null.");
-            return result;
-        }
+//        if (dashboard == null) {
+//            result.addMessage(ResultType.INVALID, "Dashboard cannot be null.");
+//            return result;
+//        }
 
         if (Validations.isNullOrBlank(dashboard.getDashboardName())) {
             result.addMessage(ResultType.INVALID, "Dashboard name is required.");
@@ -66,6 +76,15 @@ public class DashboardService {
             result.addMessage(ResultType.INVALID, "User Id is required.");
         }
 
+//        if (findByUserId(dashboard.getUserId()) == null) {
+//            result.addMessage(ResultType.INVALID, "User cannot have more than one dashboard.");
+//        }
+
+        result.setPayload(dashboard);
+
         return result;
     }
-}
+
+
+    }
+
