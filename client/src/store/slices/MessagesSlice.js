@@ -5,17 +5,20 @@ export const messagesSlice = createSlice({
 
   initialState: {
     messageId: '',
+    messageType: '',
     message: '',
   },
 
   reducers: {
     setMessages: (state, action) => {
       state.messageId = action.payload.messageId;
+      state.messageType = action.payload.messageType;
       state.message = action.payload.message;
     },
 
     clearMessages: (state) => {
       state.messageId = '';
+      state.messageType = '';
       state.message = '';
     },
   },

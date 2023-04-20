@@ -1,14 +1,14 @@
-import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import uuid from 'react-uuid';
 import '../Styles/Login.css';
-import AuthContext from '../Contexts/AuthContext';
 
+// Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../store/slices/AuthSlice.js';
+import { setMessages } from '../store/slices/MessagesSlice';
 
-function Login({ messages, setMessages }) {
+function Login() {
   const {
     register,
     handleSubmit,
@@ -17,10 +17,6 @@ function Login({ messages, setMessages }) {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const auth = useContext(AuthContext);
-
-  //Redux's state.
-  const authToken = useSelector((state) => state.auth.authToken);
 
   const onSubmit = (userData) => {
     fetch('http://localhost:8080/user/authenticate', {
@@ -46,41 +42,40 @@ function Login({ messages, setMessages }) {
         }
       })
       .then((data) => {
-        // auth.login(data.jwt_token);
-
-        console.log(data);
         // setting the global state
         dispatch(login(data));
 
-        navigate('/');
-        setMessages([
-          ...messages,
-          {
-            id: uuid(),
-            type: 'success',
-            text: 'Welcome to Your Dashboard!',
-          },
-        ]);
+        // console.log(authToken);
+
+        navigate(`/dashboard/user/${data.userId}`);
+
+        const messageData = {
+          messageId: uuid(),
+          messageType: 'success',
+          message: 'Welcome to Your Dashboard!',
+        };
+
+        dispatch(setMessages(messageData));
       })
       .catch((error) => {
         if (error.status === 403) {
-          setMessages([
-            ...messages,
-            {
-              id: uuid(),
-              type: 'failure',
-              text: 'Account could not be logged in at this time.',
-            },
-          ]);
+          const messageData = {
+            messageId: uuid(),
+            messageType: 'failure',
+            message: 'Account could not be logged in at this time.',
+          };
+
+          dispatch(setMessages(messageData));
         } else {
-          setMessages([
-            ...messages,
-            {
-              id: uuid(),
-              type: 'failure',
-              text: 'Unexpected error occurred.',
-            },
-          ]);
+          
+          const messageData = {
+            messageId: uuid(),
+            messageType: 'failure',
+            message: 'Unexpected error occurred',
+          };
+
+          dispatch(setMessages(messageData));
+
           navigate('/notFound');
         }
       });
@@ -91,7 +86,7 @@ function Login({ messages, setMessages }) {
       <div className="col-lg-4 col-md-6">
         <h3>Login</h3>
 
-        {console.log(authToken)}
+        {/* {console.log(authToken)} */}
 
         <form id="login-form" onSubmit={handleSubmit(onSubmit)}>
           <label className="form-label mt-3" htmlFor="user-username">
@@ -122,6 +117,7 @@ function Login({ messages, setMessages }) {
             className="form-control"
             type="password"
             id="user-password"
+            autoComplete="off"
             {...register('password', {
               required: 'Must have a valid password.',
               minLength: {

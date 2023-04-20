@@ -1,32 +1,58 @@
-function Message({ message, messages, setMessages }) {
-  const handleClose = () => {
-    let filteredMessages = messages.filter((m) => m.id !== message.id);
-    setMessages(filteredMessages);
+import { useEffect } from 'react';
+
+// Redux
+import { useSelector, useDispatch } from 'react-redux';
+import { clearMessages } from '../store/slices/MessagesSlice';
+
+function Message() {
+  const dispatch = useDispatch();
+
+  //Redux's state.
+  const message = useSelector((state) => state.messages.message);
+  const messageId = useSelector((state) => state.messages.messageId);
+  const messageType = useSelector((state) => state.messages.messageType);
+  // console.log(messageType);
+
+  // const handleClose = () => {
+  //   // let filteredMessages = messages.filter((m) => m.id !== message.id);
+  //   // setMessages(filteredMessages);
+
+  //   dispatch(clearMessages());
+  // };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(clearMessages());
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  const getClassNameBasedOnType = (messageType) => {
+    if (messageType === 'success') {
+      return 'alert alert-success';
+    } else if (messageType === 'failure') {
+      return 'alert alert-danger';
+    } else {
+      return ''; // Set a default class for blank messageType
+    }
   };
 
-  setTimeout(() => {
-    handleClose();
-  }, 5000);
-
   return (
-    <div
-      className={
-        message.type === 'success'
-          ? 'alert alert-success'
-          : 'alert alert-danger'
-      }
-    >
+    <div className={getClassNameBasedOnType(messageType)}>
       <div className="row">
         <div className="col-11">
-          <p className="mb-0">{message.text}</p>
+          <p className="mb-0">{message}</p>
         </div>
         <div className="col-1 text-end">
-          <button
+          {/* <button
             type="button"
             className="btn-close"
             aria-label="Close"
-            onClick={handleClose}
-          ></button>
+            // onClick={handleClose}
+          ></button> */}
         </div>
       </div>
     </div>

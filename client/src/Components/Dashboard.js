@@ -15,46 +15,43 @@ function Dashboard({ messages, setMessages }) {
   const authUsername = useSelector((state) => state.auth.username);
   const authAuthorities = useSelector((state) => state.auth.authorities);
 
-
- // on load send fetch to find by id
-fetch(`http://localhost:8080/dashboard/${authUserId}`, {
+  // on load send fetch to find by id
+  fetch(`http://localhost:8080/dashboard/user/${authUserId}`, {
     method: 'GET',
     headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + authToken,
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + authToken,
     },
-})
-.then((response) => {
-    if (response.status === 200) {
+  })
+    .then((response) => {
+      if (response.status === 200) {
         return response.json();
-    } else if (response.status === 404) {
+      } else if (response.status === 404) {
         // if the id is not found, create a new Dashboard
         return fetch('http://localhost:8080/dashboard', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + authToken,
-            },
-        })
-        .then((response) => {
-            if (response.status === 201) {
-                return response.json();
-            } else {
-                throw new Error('Could not create Dashboard.');
-            }
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + authToken,
+          },
+        }).then((response) => {
+          if (response.status === 201) {
+            return response.json();
+          } else {
+            throw new Error('Could not create Dashboard.');
+          }
         });
-    } else {
+      } else {
         throw new Error('An unexpected error occurred.');
-    }
-})
-.then((data) => {
-    if (data) {
+      }
+    })
+    .then((data) => {
+      if (data) {
         // render the data
         console.log(data);
-    }
-})
-.catch((error) => console.log(error));
-
+      }
+    })
+    .catch((error) => console.log(error));
 
   return <div>Dashboard</div>;
 }
