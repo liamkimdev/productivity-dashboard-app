@@ -18,6 +18,8 @@ function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const authToken = useSelector((state) => state.auth.authToken);
+
   const onSubmit = (userData) => {
     fetch('http://localhost:8080/user/authenticate', {
       method: 'POST',
@@ -41,11 +43,13 @@ function Login() {
           return Promise.reject(response);
         }
       })
+    
       .then((data) => {
+        console.log(data)
         // setting the global state
         dispatch(login(data));
 
-        // console.log(authToken);
+        console.log(authToken);
 
         navigate(`/dashboard/user/${data.userId}`);
 
@@ -67,7 +71,6 @@ function Login() {
 
           dispatch(setMessages(messageData));
         } else {
-          
           const messageData = {
             messageId: uuid(),
             messageType: 'failure',

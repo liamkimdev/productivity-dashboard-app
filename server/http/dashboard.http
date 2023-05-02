@@ -16,12 +16,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1Y
 
 POST {{url}} HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InJhY2hlbEZyb21GcmllbmRzMjgiLCJhcHBfdXNlcl9pZCI6OCwiYXV0aG9yaXRpZXMiOiJVU0VSIiwiZXhwIjoxNjgyMDA1MjMyfQ.3YbpS71fKOsnspMylMO79NyGPyVT5Yvi3aQvAcgky6w
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6Im1pbGxlclRpbWUxMDAwIiwiYXBwX3VzZXJfaWQiOjIwLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODI5NjQ3Njl9.Y5rImUrgj6HsBoX9noe_N3IOAkSTiAoKFfi7x1x9LNQ
 
 
 {
     "dashboardName": "My Dashboard",
-    "userId": 8
+    "userId": 20
 }
 
 ### Update Dashboard - dashboardId needs to match the url and the request body

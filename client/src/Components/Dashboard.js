@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../store/slices/AuthSlice.js';
 
-function Dashboard({ messages, setMessages }) {
+function Dashboard() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

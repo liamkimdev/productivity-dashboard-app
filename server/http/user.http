@@ -14,7 +14,7 @@ POST {{url}}/create_account HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "rachelFromFriends28",
+  "username": "millerTime1000",
   "password": "P@ssw0rd!"
 }
 
@@ -24,7 +24,7 @@ POST {{url}}/authenticate HTTP/1.1
 Content-Type: application/json
 
 {
-  "username": "rachelFromFriends28",
+  "username": "millerTime1000",
   "password": "P@ssw0rd!"
 }
 

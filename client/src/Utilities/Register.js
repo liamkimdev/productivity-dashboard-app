@@ -9,6 +9,134 @@ import { login } from '../store/slices/AuthSlice.js';
 import { createDashboard } from '../store/slices/DashboardSlice';
 import { setMessages } from '../store/slices/MessagesSlice';
 
+// function Register() {
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch();
+
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//   } = useForm();
+
+//   // Redux's state.
+//   const authToken = useSelector((state) => state.auth.authToken);
+
+//   const onSubmit = async (userData) => {
+//     try {
+//       // Create account
+//       const createAccountResponse = await fetch(
+//         'http://localhost:8080/user/create_account',
+//         {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json',
+//           },
+//           body: JSON.stringify(userData),
+//         }
+//       )
+
+//       .then( (response) => {
+//         if (response.status === 201) {
+//         const messageData = {
+//           messageId: uuid(),
+//           messageType: 'success',
+//           message: 'Account successfully created. Please sign in.',
+//         };
+//         dispatch(setMessages(messageData));
+
+//         } else {
+//           /*
+//             HTTP requests to force reject:
+//             400 Bad Request
+//             401 Unauthorized
+//             403 Forbidden
+//             404 Not Found
+//             500 Internal Server Error
+//           */
+//           return Promise.reject(response);
+//         }
+//         })
+
+//         // Authenticate newly created account
+//         .then((data) => {
+//           fetch(
+//           'http://localhost:8080/user/authenticate',
+//           {
+//             method: 'POST',
+//             headers: {
+//               'Content-Type': 'application/json',
+//             },
+//             body: JSON.stringify(userData),
+//           }
+
+//         )
+//         .then((response) => {
+//         if (response === 200) {
+//           const data = response.json();
+//           console.log(data);
+
+//           // Setting the global state
+//           dispatch(login(data));
+
+//           // Plug in Dashboard Name & User ID
+//           const dashboardData = {
+//             dashboardName: data.username + "'s Dashboard",
+//             userId: data.userId,
+//           };
+//           console.log(dashboardData);
+
+//           // Create dashboard for the newly created user
+//           const authToken = data.jwt_token;
+
+//           console.log(authToken);
+//         }
+//       })
+
+//           .then(() => {
+//             fetch(
+//             'http://localhost:8080/dashboard',
+//             {
+//               method: 'POST',
+//               headers: {
+//                 'Content-Type': 'application/json',
+//                 Authorization: 'Bearer ' + authToken,
+//               },
+//               body: JSON.stringify(dashboardData),
+//             }
+//           )
+//           .then((response) => {
+//           if (response === 201) {
+//             console.log('Dashboard Created Successfully');
+//             navigate('/login');
+//           } else {
+//             console.log('Dashboard Creation Failed');
+//             return Promise.reject(createDashboardResponse);
+//           }
+//         })
+
+//         } else {
+//           return Promise.reject(response);
+//         }
+//       } else {
+//         const messageData = {
+//           messageId: uuid(),
+//           messageType: 'failure',
+//           message: 'Account could not be created at this time.',
+//         };
+
+//         dispatch(setMessages(messageData));
+//       }
+//     } catch (error) {
+//       const messageData = {
+//         messageId: uuid(),
+//         messageType: 'failure',
+//         message: error.message,
+//       };
+
+//       dispatch(setMessages(messageData));
+//     }
+//   };
 function Register() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,12 +147,8 @@ function Register() {
     formState: { errors },
   } = useForm();
 
-  // Redux's state.
-  const authToken = useSelector((state) => state.auth.authToken);
-
   const onSubmit = async (userData) => {
     try {
-      // Create account
       const createAccountResponse = await fetch(
         'http://localhost:8080/user/create_account',
         {
@@ -36,25 +160,14 @@ function Register() {
         }
       );
 
-      if (createAccountResponse.status === 201) {
+      if (createAccountResponse.ok) {
         const messageData = {
           messageId: uuid(),
           messageType: 'success',
           message: 'Account successfully created. Please sign in.',
         };
-
         dispatch(setMessages(messageData));
 
-        // setMessages([
-        //   ...messages,
-        //   {
-        //     id: uuid(),
-        //     type: 'success',
-        //     text: 'Account successfully created. Please sign in.',
-        //   },
-        // ]);
-
-        // Authenticate newly created account
         const authenticateResponse = await fetch(
           'http://localhost:8080/user/authenticate',
           {
@@ -66,76 +179,60 @@ function Register() {
           }
         );
 
-        if (authenticateResponse.status === 200) {
+        if (authenticateResponse.ok) {
           const data = await authenticateResponse.json();
 
-          // Setting the global state
           dispatch(login(data));
 
-          // Plug in Dashboard Name & User ID
           const dashboardData = {
-            dashboardName: data.username + "'s Dashboard",
+            dashboardName: `${data.username}'s Dashboard`,
             userId: data.userId,
           };
 
-          // Setting the global state
-          dispatch(createDashboard(dashboardData));
+          const authToken = data.jwt_token;
 
-          // Create dashboard for the newly created user
           const createDashboardResponse = await fetch(
             'http://localhost:8080/dashboard',
             {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + authToken,
+                Authorization: `Bearer ${authToken}`,
               },
               body: JSON.stringify(dashboardData),
             }
           );
 
-          if (createDashboardResponse.status === 201) {
+          if (createDashboardResponse.ok) {
             console.log('Dashboard Created Successfully');
             navigate('/login');
           } else {
             console.log('Dashboard Creation Failed');
-            return Promise.reject(createDashboardResponse);
+            throw new Error('Dashboard Creation Failed');
           }
         } else {
-          return Promise.reject(authenticateResponse);
+          const messageData = {
+            messageId: uuid(),
+            messageType: 'failure',
+            message: 'Authentication failed.',
+          };
+          dispatch(setMessages(messageData));
         }
       } else {
-        // setMessages([
-        //   ...messages,
-        //   {
-        //     id: uuid(),
-        //     type: 'failure',
-        //     text: 'Account could not be created at this time.',
-        //   },
-        // ]);
-
-         const messageData = {
+        const messageData = {
           messageId: uuid(),
           messageType: 'failure',
           message: 'Account could not be created at this time.',
         };
-
         dispatch(setMessages(messageData));
       }
     } catch (error) {
-      
-      // setMessages([
-      //   ...messages,
-      //   { id: uuid(), type: 'failure', text: error.message },
-      // ]);
-
-          const messageData = {
-          messageId: uuid(),
-          messageType: 'failure',
-          message: error.message,
-        };
-
-        dispatch(setMessages(messageData));
+      const messageData = {
+        messageId: uuid(),
+        messageType: 'failure',
+        message: error.message,
+      };
+      dispatch(setMessages(messageData));
     }
   };
 

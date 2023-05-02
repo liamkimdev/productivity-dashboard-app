@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { Sidebar } from 'react-pro-sidebar';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import './Styles/App.css';
@@ -24,16 +24,16 @@ function App() {
 
   return (
     <div className="app">
-      <div className="navbar-container">
+      <div>
         <Navbar />
 
-        <div className="">
-          <Sidebar>
-            <SideNavbar />
-          </Sidebar>
-        </div>
-
-        <Message />
+        {authToken ? (
+          <div>
+            <Sidebar>
+              <SideNavbar />
+            </Sidebar>
+          </div>
+        ) : null}
 
         <Routes>
           <Route path="/" element={<Home />} />
@@ -47,6 +47,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/notFound" element={<NotFound />} />
         </Routes>
+
+        <Message />
       </div>
     </div>
   );

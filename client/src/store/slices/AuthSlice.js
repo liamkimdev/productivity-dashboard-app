@@ -12,6 +12,11 @@ export const authSlice = createSlice({
 
   reducers: {
     login: (state, action) => {
+      console.log(action.payload.jwt_token);
+      console.log(action.payload.userId);
+      console.log(action.payload.username);
+      console.log(action.payload.authorities);
+
       state.authToken = action.payload.jwt_token;
       state.userId = action.payload.userId;
       state.username = action.payload.username;

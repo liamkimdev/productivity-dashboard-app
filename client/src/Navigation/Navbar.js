@@ -1,26 +1,42 @@
 import Navbar from 'react-bootstrap/Navbar';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+
 import '../Navigation/Navbar.css';
 
+import { logout } from '../store/slices/AuthSlice.js';
+
 function MyNavbar() {
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  //Redux's state.
+  const authToken = useSelector((state) => state.auth.authToken);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
 
   return (
     <>
       <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/home">Productivity Dashboard</Navbar.Brand>
 
-        {/* You only see Home Page if you are NOT signed in */}
+        {/* You only see Home Page if you are NOT signed in */}{}
         <NavLink to="/" className="nav-links">
           Home
         </NavLink>
 
-        <NavLink to="/login" className="nav-links">
-          Login
-        </NavLink>
-        <NavLink to="/logout" className="nav-links">
-          Logout
-        </NavLink>
+        {!authToken ? (
+          <NavLink to="/login" className="nav-links">
+            Login
+          </NavLink>
+        ) : null}
+
+        {authToken ? (
+          <NavLink to="/" className="nav-links" onClick={handleLogout}>
+            Logout
+          </NavLink>
+        ) : null}
       </Navbar>
     </>
   );
