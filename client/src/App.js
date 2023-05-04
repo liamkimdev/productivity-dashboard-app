@@ -8,12 +8,12 @@ import './Styles/App.css';
 
 import Navbar from '../src/Navigation/Navbar';
 import SideNavbar from './Navigation/SideNavbar';
-import Home from './Components/Home';
+import Home from './Pages/Home';
 import Login from './Utilities/Login';
 import NotFound from './Utilities/NotFound';
 import Register from './Utilities/Register';
 import Message from './Utilities/Message';
-import Dashboard from './Components/Dashboard';
+import Dashboard from './Pages/Dashboard';
 
 function App() {
   const [dashboard, setDashboard] = useState([]);
@@ -24,31 +24,27 @@ function App() {
 
   return (
     <div className="app">
-      <div>
-        <Navbar />
+      <Navbar />
 
-        {authToken ? (
-          <div>
-            <Sidebar>
-              <SideNavbar />
-            </Sidebar>
-          </div>
-        ) : null}
+      <div className="overall-div">
+        {/* 2nd child div */}
+        <div id="messages" className="messages routes-container">
+          <Message />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path={`/dashboard/user/${userId}`}
-            element={
-              <Dashboard dashboard={dashboard} setDashboard={setDashboard} />
-            }
-          />
-          <Route path="/register" element={<Register />} />
-          <Route path="/notFound" element={<NotFound />} />
-        </Routes>
-
-        <Message />
+          {/* ROUTES */}
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path={`/dashboard/user/${userId}`}
+              element={
+                <Dashboard dashboard={dashboard} setDashboard={setDashboard} />
+              }
+            />
+            <Route path="/register" element={<Register />} />
+            <Route path="/notFound" element={<NotFound />} />
+          </Routes>
+        </div>
       </div>
     </div>
   );

@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Sidebar } from 'react-pro-sidebar';
+import '../Styles/Dashboard.css';
 
 // Redux
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../store/slices/AuthSlice.js';
+
+// Components
+import Note from '../Widgets/Note.js';
+import SideNavbar from '../Navigation/SideNavbar.js';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -15,6 +21,21 @@ function Dashboard() {
   const authUsername = useSelector((state) => state.auth.username);
   const authAuthorities = useSelector((state) => state.auth.authorities);
 
+  // // to render the dashboard and widgets
+  // useEffect(() => {
+  //   // should re-render dashboard
+  //   callDashboard();
+  // }, []);
+
+  // //to render the note
+  // useEffect(() => {
+  //   // should re-render dashboard
+  //   callDashboard();
+  // }, [showNote]);
+
+  const [showNote, setShowNote] = useState(false);
+
+  // const callDashboard = () => {
   // on load send fetch to find by id
   fetch(`http://localhost:8080/dashboard/user/${authUserId}`, {
     method: 'GET',
@@ -52,8 +73,23 @@ function Dashboard() {
       }
     })
     .catch((error) => console.log(error));
+  // };
 
-  return <div>Dashboard</div>;
+  const handleNoteButtonClick = () => {
+    setShowNote(!showNote);
+  };
+
+  return (
+    <div className="dashboard-container">
+      <div>
+        <Sidebar>
+          <SideNavbar handleNoteButtonClick={handleNoteButtonClick} />
+        </Sidebar>
+      </div>
+
+      <div>{showNote && <Note />}</div>
+    </div>
+  );
 }
 
 export default Dashboard;

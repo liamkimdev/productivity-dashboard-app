@@ -1,22 +1,19 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './SideNavbar.css';
 import { Menu, MenuItem, useProSidebar } from 'react-pro-sidebar';
-import { AlignCenter } from 'react-feather';
+import { Menu as MenuIcon, Paperclip } from 'react-feather';
 
-// // Redux
-// import { useSelector, useDispatch } from 'react-redux';
-// import { login } from '../store/slices/AuthSlice.js';
-
-
-function SideNavbar() {
+function SideNavbar({ handleNoteButtonClick }) {
   const { collapseSidebar } = useProSidebar();
-
-  // const authToken = useSelector((state) => state.auth.authToken);
 
   return (
     <div className="side-navbar">
       <Menu>
-        <MenuItem icon={<AlignCenter />} onClick={() => collapseSidebar()}>
+        <MenuItem icon={<MenuIcon />} onClick={() => collapseSidebar()}>
+          Widgets
+        </MenuItem>
+
+        <MenuItem icon={<Paperclip />} onClick={handleNoteButtonClick}>
           Note
         </MenuItem>
       </Menu>
