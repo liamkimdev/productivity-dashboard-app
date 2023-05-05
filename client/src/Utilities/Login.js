@@ -43,9 +43,9 @@ function Login() {
           return Promise.reject(response);
         }
       })
-    
+
       .then((data) => {
-        console.log(data)
+        console.log(data);
         // setting the global state
         dispatch(login(data));
 

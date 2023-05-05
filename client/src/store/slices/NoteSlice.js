@@ -4,31 +4,49 @@ export const noteSlice = createSlice({
   name: 'note',
 
   initialState: {
-    noteId: '',
-    noteTitle: '',
-    noteDescription: '',
-    noteDate: '',
-    noteDashboardId: '',
+    notes: [],
+    // noteId: '',
+    // noteTitle: '',
+    // noteDescription: '',
+    // noteDate: '',
+    // noteDashboardId: '',
   },
 
   reducers: {
-    createNote: (state, action) => {
-      state.noteId = action.payload.noteId;
-      state.noteTitle = action.payload.noteTitle;
-      state.noteDescription = action.payload.noteDescription;
-      state.noteDate = action.payload.noteDate;
-      state.noteDashboardId = action.payload.noteDashboardId;
+    setNotes: (state, action) => {
+      state.notes = action.payload;
     },
 
-    deleteNote: (state) => {
-      state.noteId = '';
-      state.noteTitle = '';
-      state.noteDescription = '';
-      state.noteDate = '';
-      state.noteDashboardId = '';
+    createNote: (state, action) => {
+      state.notes.push(action.payload);
+    },
+
+    findNoteById: (state, action) => {
+      const id = action.payload;
+      const note = state.notes.find((note) => note.id === id);
+    },
+
+    findNoteByDate: (state, action) => {},
+    findNoteByDescription: (state, action) => {},
+
+    deleteNoteById: (state, action) => {
+      const id = action.payload;
+      state.notes = state.notes.filter((note) => note.id !== id);
+    },
+
+    deleteAllNotes: (state) => {
+      state.notes = [];
     },
   },
 });
 
-export const { createNote, deleteNote } = noteSlice.actions;
+export const {
+  setNotes,
+  createNote,
+  findNoteById,
+  findNoteByDate,
+  findNoteByDescription,
+  deleteNoteById,
+  deleteAllNotes,
+} = noteSlice.actions;
 export default noteSlice.reducer;

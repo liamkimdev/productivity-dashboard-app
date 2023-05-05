@@ -4,7 +4,7 @@
 
 ### find all
 GET {{url}} HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6InNjaGltaWR0eXdhcmJlcm1hbmplbnNlbiIsImFwcF91c2VyX2lkIjoyLCJhdXRob3JpdGllcyI6IlVTRVIiLCJleHAiOjE2ODAxOTgwNDB9.Jw5ERMy8j1D7bcyx7D4ovtijEQGDJr6NLenFhE13oVY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJwcm9kLWRhc2hib2FyZCIsInN1YiI6Im1pbGxlclRpbWUxMDAwIiwiYXBwX3VzZXJfaWQiOjIsImF1dGhvcml0aWVzIjoiVVNFUiIsImV4cCI6MTY4MzMwNDE4NH0.UbAWLYdfoyKQ_q8Yv48Qs3qdEii-_vtex-llOgYqUJw
 
 ### find by date
 GET {{url}}/byDate/2023-03-31 HTTP/1.1

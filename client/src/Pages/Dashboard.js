@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../store/slices/AuthSlice.js';
 
 // Components
-import Note from '../Widgets/Note.js';
+import NoteWidget from '../Widgets/NoteWidget.js';
 import SideNavbar from '../Navigation/SideNavbar.js';
 
 function Dashboard() {
@@ -21,19 +21,7 @@ function Dashboard() {
   const authUsername = useSelector((state) => state.auth.username);
   const authAuthorities = useSelector((state) => state.auth.authorities);
 
-  // // to render the dashboard and widgets
-  // useEffect(() => {
-  //   // should re-render dashboard
-  //   callDashboard();
-  // }, []);
-
-  // //to render the note
-  // useEffect(() => {
-  //   // should re-render dashboard
-  //   callDashboard();
-  // }, [showNote]);
-
-  const [showNote, setShowNote] = useState(false);
+  const [showNoteWidget, setShowNoteWidget] = useState(false);
 
   // const callDashboard = () => {
   // on load send fetch to find by id
@@ -73,10 +61,9 @@ function Dashboard() {
       }
     })
     .catch((error) => console.log(error));
-  // };
 
   const handleNoteButtonClick = () => {
-    setShowNote(!showNote);
+    setShowNoteWidget(!showNoteWidget);
   };
 
   return (
@@ -87,7 +74,7 @@ function Dashboard() {
         </Sidebar>
       </div>
 
-      <div>{showNote && <Note />}</div>
+      <div>{showNoteWidget && <NoteWidget />}</div>
     </div>
   );
 }

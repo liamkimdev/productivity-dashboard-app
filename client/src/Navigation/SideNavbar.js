@@ -14,7 +14,7 @@ function SideNavbar({ handleNoteButtonClick }) {
         </MenuItem>
 
         <MenuItem icon={<Paperclip />} onClick={handleNoteButtonClick}>
-          Note
+          Notes
         </MenuItem>
       </Menu>
     </div>
