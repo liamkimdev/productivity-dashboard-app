@@ -1,5 +1,5 @@
 # Productivity Dashboard App
-Full-Stack Productivity Dashboard Application built from scratch front-end to back-end.
+Enhancing productivity through task tracking and collaboration features.
 
 ## CRUD Application - MVC Pattern
 - FrontEnd: React w/ Typescript + Redux (State Management Library), BootStrap/ReactBS, WebPack (JS Bundler)
